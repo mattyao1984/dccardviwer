@@ -12,10 +12,11 @@
   ],
   "homepage": "",
   "dependencies": {
-    "jquery": "^2.1.4",
-    "bootstrap": "^3.3.5",
+    "jquery": "~2.2.0",
     "magnific-popup": "^1.0.0",
-    "toastr": "^2.1.1"
+    "toastr": "^2.1.1",
+    "bootstrap-css": "~3.3.4",
+    "moment": "~2.11.1"
   },
   "ignore": [
     "**/.*",

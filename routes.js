@@ -10,9 +10,14 @@ var swig  = require('swig');
 var config = require('./config');
 var React = require('react');
 var ReactDOM = require('react-dom/server');
+var error = require('./controllers/error/404.controller');
 
 module.exports = function(app){
   app.use(require('./controllers/card'));
+
+  app.route('/:url(api|auth|components|app|bower_components|assets)/*')
+   .get(error[404]);
+
   app.use(function(req, res){
     Router.match({ routes: routes.default, location: req.url }, function(err, redirectLocation, renderProps) {
       if (err) {

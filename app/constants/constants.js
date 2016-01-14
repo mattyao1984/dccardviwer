@@ -1,0 +1,8 @@
+var keyMirror = require('keymirror');
+
+module.exports = keyMirror({
+  SEARCH_CARDS: 'SEARCH_CARDS',
+  LOADED_CARDS: 'LOADED_CARDS',
+  LOADED_CARDS_SUCCESS: 'LOADED_CARDS_SUCCESS',
+  LOADED_CARDS_ERROR: 'LOADED_CARDS_ERROR'
+})

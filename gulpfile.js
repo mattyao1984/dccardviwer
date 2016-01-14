@@ -12,6 +12,8 @@ var babelify = require('babelify');
 var browserify = require('browserify');
 var watchify = require('watchify');
 var uglify = require('gulp-uglify');
+var wiredep = require('wiredep').stream;
+var _ = require('lodash');
 
 var production = process.env.NODE_ENV === 'production';
 
@@ -20,23 +22,16 @@ var dependencies = [
   'react',
   'react-dom',
   'react-router',
-  'underscore'
+  'lodash'
 ];
 
-/*
- |--------------------------------------------------------------------------
- | Combine all JS libraries into a single file for fewer HTTP requests.
- |--------------------------------------------------------------------------
- */
-gulp.task('vendor', function() {
-  return gulp.src([
-    'bower_components/jquery/dist/jquery.js',
-    'bower_components/bootstrap/dist/js/bootstrap.js',
-    'bower_components/magnific-popup/dist/jquery.magnific-popup.js',
-    'bower_components/toastr/toastr.js'
-  ]).pipe(concat('vendor.js'))
-    .pipe(gulpif(production, uglify({ mangle: false })))
-    .pipe(gulp.dest('public/js'));
+gulp.task('wiredep', function () {
+  gulp.src('views/index.html')
+    .pipe(wiredep({
+      directory: 'public/bower_components',
+      ignorePath: '../public'
+    }))
+    .pipe(gulp.dest('./views'));
 });
 
 /*
@@ -105,9 +100,13 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('public/css'));
 });
 
-gulp.task('watch', function () {
+gulp.task('sass:watch', function () {
   gulp.watch(['app/sass/**/*.scss', 'app/components/**/*.scss'], ['sass']);
 });
 
-gulp.task('default', ['sass', 'vendor', 'browserify-watch', 'watch']);
-gulp.task('build', ['sass', 'vendor', 'browserify'])l
+gulp.task('wiredep:watch', function () {
+  gulp.watch(['bower.json'], ['wiredep']);
+});
+
+gulp.task('default', ['sass', 'wiredep', 'browserify-watch', 'sass:watch', 'wiredep:watch']);
+gulp.task('build', ['sass', 'browserify']);
