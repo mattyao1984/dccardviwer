@@ -1,0 +1,27 @@
+{
+  "name": "mern",
+  "description": "This is a demo of how to build full-stack web app with React, Node.js, MongoDB and Express",
+  "main": "server.js",
+  "authors": [
+    "Matt Yao"
+  ],
+  "license": "MIT",
+  "moduleType": [
+    "es6",
+    "node"
+  ],
+  "homepage": "",
+  "dependencies": {
+    "jquery": "^2.1.4",
+    "bootstrap": "^3.3.5",
+    "magnific-popup": "^1.0.0",
+    "toastr": "^2.1.1"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
