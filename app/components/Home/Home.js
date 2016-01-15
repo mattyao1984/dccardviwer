@@ -39,7 +39,7 @@ class Home extends React.Component {
       <div className="page home">
         <div className="container">
           <h2>Deadman's Cross Cards Viwer</h2>
-
+          <hr />
           <div className="cards-block">
             <CardList data={this.state.allCards} />
           </div>
