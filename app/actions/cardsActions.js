@@ -4,13 +4,19 @@ import Constants from '../constants/constants';
 import $ from 'jquery';
 
 var CardActions = {
-  loadCards: function(){
+  loadCards: function(perpage, offset){
     Dispatcher.dispatch({
       actionType: Constants.LOADED_CARDS
     });
 
     var promise = $.ajax({
-      url: '/api/cards'
+      url: '/api/cards',
+      data: {
+        limit: perpage,
+        offset: offset
+      },
+      dataType: 'json',
+      type: 'GET'
     });
 
     promise.then(function(res){

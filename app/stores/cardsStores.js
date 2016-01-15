@@ -8,12 +8,17 @@ import assign from 'object-assign';
 
 var EventEmitter = events.EventEmitter;
 var allCards = [];
+var pageNum = 0;
 var request_error = '';
 var CHANGE_EVENT = 'change';
 
 var CardsStore = assign({}, EventEmitter.prototype, {
   getAllCards: function(){
     return allCards;
+  },
+
+  getPageNum: function(){
+    return pageNum;
   },
 
   getRequestError: function(){
@@ -40,6 +45,7 @@ Dispatcher.register((payload) => {
       break;
     case Constants.LOADED_CARDS_SUCCESS:
       allCards = payload.data.cards;
+      pageNum = Math.ceil(payload.data.meta.total_count / payload.data.meta.limit);
       CardsStore.emitChange();
       break;
     case Constants.LOADED_CARDS_ERROR:

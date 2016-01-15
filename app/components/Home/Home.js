@@ -1,26 +1,30 @@
 import React from 'react';
 import logger from 'morgan';
+import ReactPaginate from 'react-paginate';
 import $ from 'jquery';
 import _ from 'lodash';
 import CardsStore from '../../stores/cardsStores';
 import CardsActions from '../../actions/cardsActions';
 import CardList from '../CardList/CardList';
 
+var PER_PAGE = 10;
+
 class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      allCards: CardsStore.getAllCards()
+      allCards: CardsStore.getAllCards(),
+      offset: 0
     };
 
     this.render = this.render.bind(this);
     this._onLoad = this._onLoad.bind(this);
+    this._onPageClick = this._onPageClick.bind(this);
   }
 
   componentDidMount() {
-
     CardsStore.addChangeListener(this._onLoad);
-    CardsActions.loadCards();
+    CardsActions.loadCards(PER_PAGE, this.state.offset);
   }
 
   componentWillUnmount() {
@@ -32,8 +36,21 @@ class Home extends React.Component {
     this.setState({
       allCards: CardsStore.getAllCards()
     });
+  }
 
-    console.log(this.state.allCards);
+  _onPageClick(data){
+    let selected = data.selected;
+    let offset = Math.ceil(selected * PER_PAGE);
+
+    this.setState({
+      offset: offset
+    }, () => {
+      CardsActions.loadCards(PER_PAGE, offset);
+
+      this.setState({
+        pageNum: CardsStore.getPageNum()
+      })
+    });
   }
 
   render () {
@@ -45,6 +62,17 @@ class Home extends React.Component {
           <div className="cards-block">
             <CardList data={this.state.allCards} />
           </div>
+
+          <ReactPaginate previousLabel={"previous"}
+           nextLabel={"next"}
+           breakLabel={<li className="break"><a href="">...</a></li>}
+           pageNum={this.state.pageNum}
+           marginPagesDisplayed={2}
+           pageRangeDisplayed={5}
+           clickCallback={this._onPageClick}
+           containerClassName={"pagination"}
+           subContainerClassName={"pages pagination"}
+           activeClassName={"active"} />
         </div>
       </div>
     );
