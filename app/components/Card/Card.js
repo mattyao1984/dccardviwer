@@ -12,7 +12,15 @@ class Card extends React.Component {
 
     return(
       <a className="card-info-link">
-        <img src={imgPath} />
+        <div className="flipper">
+          <div className="flipper-front">
+            <img src={imgPath} />
+          </div>
+
+          <div className="flipper-back">
+            <p className="text-left">{data.description}</p>
+          </div>
+        </div>
       </a>
     );
   }
