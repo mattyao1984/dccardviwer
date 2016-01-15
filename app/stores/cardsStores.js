@@ -39,7 +39,7 @@ Dispatcher.register((payload) => {
       CardsStore.emitChange();
       break;
     case Constants.LOADED_CARDS_SUCCESS:
-      allCards = payload.data;
+      allCards = payload.data.cards;
       CardsStore.emitChange();
       break;
     case Constants.LOADED_CARDS_ERROR:

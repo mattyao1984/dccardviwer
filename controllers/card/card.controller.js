@@ -4,6 +4,13 @@ var Card = require('../../models/card');
 var config = require('../../config');
 var request = require('request');
 var _ = require('lodash');
+var util = require('util');
+
+
+var PER_PAGE = 10;
+var getPaginatedItems = function(items, offset){
+  return items.slice(offset, offset + PER_PAGE);
+};
 
 module.exports = {
   create: function(req, res){
@@ -60,7 +67,25 @@ module.exports = {
       if(err)
         res.send(err);
 
-      res.json(cards);
+      //Pagination function
+      var offset = req.query.offset ? parseInt(req.query.offset, PER_PAGE): 0;
+      var nextOffset = offset + PER_PAGE;
+      var previousOffset = (offset - PER_PAGE < 1) ? 0 : offset - PER_PAGE;
+
+      var meta = {
+        limit: PER_PAGE,
+        next: util.format('?limit=%s&offset=%s', PER_PAGE, nextOffset),
+        offset: req.query.offset,
+        previous: util.format('?limit=%s&offset=%s', PER_PAGE, previousOffset),
+        total_count: cards.length
+      };
+
+      var results = {
+        meta: meta,
+        cards: getPaginatedItems(cards, offset)
+      }
+
+      res.json(results);
     });
   },
 
