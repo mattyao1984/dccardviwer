@@ -32,6 +32,8 @@ class Home extends React.Component {
     this.setState({
       allCards: CardsStore.getAllCards()
     });
+
+    console.log(this.state.allCards);
   }
 
   render () {

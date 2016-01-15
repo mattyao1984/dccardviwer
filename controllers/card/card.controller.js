@@ -67,7 +67,7 @@ module.exports = {
   show: function(req, res, next){
     var cardId = req.params.id;
 
-    Card.find(cardId, function(err, card){
+    Card.find({_id: cardId}, function(err, card){
       if(err)
         res.send(err);
 
