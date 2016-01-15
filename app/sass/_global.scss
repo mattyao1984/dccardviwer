@@ -3,5 +3,9 @@ html{
     background: black;
     min-height: 100%;
     color: $main-color;
+
+    .container{
+      width: 940px;
+    }
   }
 }

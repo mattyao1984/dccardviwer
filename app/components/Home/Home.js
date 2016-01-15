@@ -4,7 +4,7 @@ import $ from 'jquery';
 import _ from 'lodash';
 import CardsStore from '../../stores/cardsStores';
 import CardsActions from '../../actions/cardsActions';
-import './_home.scss';
+import CardList from '../CardList/CardList';
 
 class Home extends React.Component {
   constructor() {
@@ -38,7 +38,11 @@ class Home extends React.Component {
     return (
       <div className="page home">
         <div className="container">
-          Home Page test.
+          <h2>Deadman's Cross Cards Viwer</h2>
+
+          <div className="cards-block">
+            <CardList data={this.state.allCards} />
+          </div>
         </div>
       </div>
     );

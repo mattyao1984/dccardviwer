@@ -1,3 +1,4 @@
+import React from 'react';
 import Dispatcher from '../dispatcher/dispatcher';
 import Constants from '../constants/constants';
 import $ from 'jquery';

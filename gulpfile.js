@@ -95,13 +95,13 @@ gulp.task('browserify-watch', ['browserify-vendor'], function() {
  |--------------------------------------------------------------------------
  */
 gulp.task('sass', function () {
-  gulp.src(['app/sass/**/*.scss', 'app/components/**/*.scss'])
+  gulp.src(['public/sass/*.scss', 'app/components/**/*.scss'])
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('public/css'));
 });
 
 gulp.task('sass:watch', function () {
-  gulp.watch(['app/sass/**/*.scss', 'app/components/**/*.scss'], ['sass']);
+  gulp.watch(['public/sass/*.scss', 'app/components/**/*.scss'], ['sass']);
 });
 
 gulp.task('wiredep:watch', function () {
