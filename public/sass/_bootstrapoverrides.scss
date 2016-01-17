@@ -1,0 +1,27 @@
+.container{
+  width: 940px;
+}
+
+.pagination{
+  float: right;
+  margin-right: 10px;
+
+  li{
+    &.previous,
+    &.next{
+      display: none;
+    }
+  }
+
+  &>li>a{
+    background: #000;
+    color: #fff;
+  }
+
+  &>.active>a,
+  &>.active>a:focus,
+  &>.active>a:hover{
+    border-color: #ababab;
+    background: #ababab;
+  }
+}

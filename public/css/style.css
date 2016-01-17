@@ -1,0 +1,92 @@
+.container {
+  width: 940px; }
+
+.pagination {
+  float: right;
+  margin-right: 10px; }
+  .pagination li.previous, .pagination li.next {
+    display: none; }
+  .pagination > li > a {
+    background: #000;
+    color: #fff; }
+  .pagination > .active > a,
+  .pagination > .active > a:focus,
+  .pagination > .active > a:hover {
+    border-color: #ababab;
+    background: #ababab; }
+
+html body {
+  background: black;
+  min-height: 100%;
+  color: white; }
+  html body .no-margin, html body footer, html body ul.card-list {
+    margin: 0;
+    padding: 0; }
+  html body a {
+    text-decoration: none; }
+    html body a:hover {
+      cursor: pointer;
+      text-decoration: none; }
+
+header .container {
+  height: 240px;
+  display: block;
+  background-image: url("/img/header_banner.png");
+  background-repeat: no-repeat;
+  background-position: center center; }
+
+footer {
+  color: white;
+  height: 40px; }
+
+.page {
+  padding: 30px 0; }
+
+ul.card-list {
+  width: 100%;
+  text-align: center; }
+  ul.card-list li {
+    list-style: none;
+    display: inline-block;
+    width: 150px;
+    margin: 15px; }
+
+.card-info-link {
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  perspective: 1000; }
+  .card-info-link .flipper-block, .card-info-link .flipper .flipper-front, .card-info-link .flipper .flipper-back {
+    width: 150px;
+    height: 225px;
+    display: block;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0; }
+  .card-info-link:hover {
+    cursor: pointer; }
+    .card-info-link:hover .flipper {
+      -webkit-transform: rotateY(180deg);
+      -moz-transform: rotateY(180deg);
+      transform: rotateY(180deg); }
+  .card-info-link .flipper {
+    position: relative;
+    width: 150px;
+    height: 225px;
+    -webkit-transition: all 0.4s linear;
+    -moz-transition: all 0.4s linear;
+    -ms-transition: all 0.4s linear;
+    -o-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+    transform-style: preserve-3d; }
+    .card-info-link .flipper .flipper-front {
+      z-index: 2;
+      transform: rotateY(0deg); }
+    .card-info-link .flipper .flipper-back {
+      transform: rotateY(180deg);
+      padding: 10px;
+      border-radius: 5px;
+      background: #dedede;
+      border: 1px solid #dedede; }
+  .card-info-link img {
+    width: 100%; }

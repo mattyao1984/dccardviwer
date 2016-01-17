@@ -1,0 +1,21 @@
+html{
+  body{
+    background: black;
+    min-height: 100%;
+    color: $main-color;
+
+    .no-margin{
+      margin: 0;
+      padding: 0;
+    }
+
+    a{
+      text-decoration: none;
+
+      &:hover{
+        cursor: pointer;
+        text-decoration: none;
+      }
+    }
+  }
+}

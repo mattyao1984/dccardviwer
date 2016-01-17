@@ -1,0 +1,11 @@
+@import "_bootstrapoverrides";
+@import "_variables";
+@import "_mixins";
+@import "_global";
+
+//component css
+@import "app/components/Header/_header";
+@import "app/components/Footer/_footer";
+@import "app/components/Home/_home";
+@import "app/components/CardList/_cardList";
+@import "app/components/Card/_card";
