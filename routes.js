@@ -14,6 +14,7 @@ var error = require('./controllers/error/404.controller');
 
 module.exports = function(app){
   app.use(require('./controllers/card'));
+  app.use(require('./controllers/spawnArea'));
 
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
    .get(error[404]);

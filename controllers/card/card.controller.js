@@ -101,6 +101,11 @@ module.exports = {
   },
 
   seedCards: function(req, res){
+    //Truncate the collection first
+    Card.remove({}, function(err){
+      console.log('Card collection is dropped.', err);
+    });
+
     //Save all cards info from public API to local MongoDB
     request('http://dccards.info/api/cards', function(error, response, body) {
       _.each(JSON.parse(body), function(card){
