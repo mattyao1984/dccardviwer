@@ -100,6 +100,24 @@ module.exports = {
     })
   },
 
+  cardStrains: function(req, res){
+    Card.find().distinct('strain', function(err, strains){
+      if(err)
+        res.send(err)
+
+      res.json(strains)
+    });
+  },
+
+  cardRarities: function(req, res){
+    Card.find().distinct('rarity', function(err, rarities){
+      if(err)
+        res.send(err)
+
+      res.json(rarities)
+    });
+  },
+
   seedCards: function(req, res){
     //Truncate the collection first
     Card.remove({}, function(err){

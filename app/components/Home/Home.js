@@ -6,6 +6,7 @@ import _ from 'lodash';
 import CardsStore from '../../stores/cardsStores';
 import CardsActions from '../../actions/cardsActions';
 import CardList from '../CardList/CardList';
+import CardFilter from '../CardFilter/CardFilter';
 
 var PER_PAGE = 10;
 
@@ -14,12 +15,14 @@ class Home extends React.Component {
     super();
     this.state = {
       allCards: CardsStore.getAllCards(),
-      offset: 0
+      offset: 0,
+      showFilter: false
     };
 
     this.render = this.render.bind(this);
     this._onLoad = this._onLoad.bind(this);
     this._onPageClick = this._onPageClick.bind(this);
+    this._onToggleFilter = this._onToggleFilter.bind(this);
   }
 
   componentDidMount() {
@@ -53,12 +56,25 @@ class Home extends React.Component {
     });
   }
 
+  _onToggleFilter() {
+    this.setState({
+      showFilter: !this.state.showFilter
+    });
+  }
+
   render () {
+    let FilterContentClass = this.state.showFilter ? 'show' : '';
+    let ShowFilterClass = 'btn btn-primary filter-btn pull-right ' + FilterContentClass;
+
     return (
       <div className="page home">
         <div className="container">
           <h2>Deadman's Cross Cards Viwer</h2>
+          <input type="button" value={this.state.showFilter ? 'Hide Filter' : 'Show Filter'} onClick={this._onToggleFilter} className={ShowFilterClass} />
           <hr />
+          <div className="filter-block">
+            <CardFilter classData={FilterContentClass} />
+          </div>
           <div className="cards-block">
             <CardList data={this.state.allCards} />
           </div>

@@ -8,6 +8,9 @@ import assign from 'object-assign';
 
 var EventEmitter = events.EventEmitter;
 var allCards = [];
+var allRarities = [];
+var allSpawnAreas = [];
+var allStrains = [];
 var pageNum = 0;
 var request_error = '';
 var CHANGE_EVENT = 'change';
@@ -19,6 +22,18 @@ var CardsStore = assign({}, EventEmitter.prototype, {
 
   getPageNum: function(){
     return pageNum;
+  },
+
+  getRarities: function(){
+    return allRarities;
+  },
+
+  getSpawnAreas: function(){
+    return allSpawnAreas;
+  },
+
+  getStrains: function(){
+    return allStrains;
   },
 
   getRequestError: function(){
@@ -41,6 +56,9 @@ var CardsStore = assign({}, EventEmitter.prototype, {
 Dispatcher.register((payload) => {
   switch(payload.actionType){
     case Constants.LOADED_CARDS:
+    case Constants.LOADED_STRAINS:
+    case Constants.LOADED_RARITIES:
+    case Constants.LOADED_SPAWN_AREAS:
       CardsStore.emitChange();
       break;
     case Constants.LOADED_CARDS_SUCCESS:
@@ -48,7 +66,22 @@ Dispatcher.register((payload) => {
       pageNum = Math.ceil(payload.data.meta.total_count / payload.data.meta.limit);
       CardsStore.emitChange();
       break;
+    case Constants.LOADED_STRAINS_SUCCESS:
+      allStrains = payload.data;
+      CardsStore.emitChange();
+      break;
+    case Constants.LOADED_RARITIES_SUCCESS:
+      allRarities = payload.data;
+      CardsStore.emitChange();
+      break;
+    case Constants.LOADED_SPAWN_AREAS_SUCCESS:
+      allSpawnAreas = payload.data;
+      CardsStore.emitChange();
+      break;
     case Constants.LOADED_CARDS_ERROR:
+    case Constants.LOADED_RARITIES_ERROR:
+    case Constants.LOADED_SPAWN_AREAS_ERROR:
+    case Constants.LOADED_STRAINS_SUCCESS:
       request_error = payload.error;
       CardsStore.emitChange();
       break;
