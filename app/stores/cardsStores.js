@@ -14,6 +14,11 @@ var allStrains = [];
 var pageNum = 0;
 var request_error = '';
 var CHANGE_EVENT = 'change';
+var filterOptions = {
+  rarity: 'All',
+  strain: 'All',
+  spawnArea: 'All'
+}
 
 var CardsStore = assign({}, EventEmitter.prototype, {
   getAllCards: function(){
@@ -34,6 +39,10 @@ var CardsStore = assign({}, EventEmitter.prototype, {
 
   getStrains: function(){
     return allStrains;
+  },
+
+  getFilterOptions: function(){
+    return filterOptions;
   },
 
   getRequestError: function(){
@@ -83,6 +92,10 @@ Dispatcher.register((payload) => {
     case Constants.LOADED_SPAWN_AREAS_ERROR:
     case Constants.LOADED_STRAINS_SUCCESS:
       request_error = payload.error;
+      CardsStore.emitChange();
+      break;
+    case Constants.UPDATE_FILTER:
+      filterOptions = payload.data;
       CardsStore.emitChange();
       break;
   }

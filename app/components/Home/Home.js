@@ -15,6 +15,7 @@ class Home extends React.Component {
     super();
     this.state = {
       allCards: CardsStore.getAllCards(),
+      filterOptions: CardsStore.getFilterOptions(),
       offset: 0,
       showFilter: false
     };
@@ -27,7 +28,11 @@ class Home extends React.Component {
 
   componentDidMount() {
     CardsStore.addChangeListener(this._onLoad);
-    CardsActions.loadCards(PER_PAGE, this.state.offset);
+    CardsActions.loadCards(PER_PAGE, this.state.offset, {
+      rarity: this.state.filterOptions.rarity,
+      strain: this.state.filterOptions.strain,
+      spawnArea:  this.state.filterOptions.spawnArea
+    });
   }
 
   componentWillUnmount() {
@@ -37,7 +42,8 @@ class Home extends React.Component {
 
   _onLoad() {
     this.setState({
-      allCards: CardsStore.getAllCards()
+      allCards: CardsStore.getAllCards(),
+      pageNum: CardsStore.getPageNum()
     });
   }
 
@@ -46,13 +52,18 @@ class Home extends React.Component {
     let offset = Math.ceil(selected * PER_PAGE);
 
     this.setState({
-      offset: offset
+      offset: offset,
+      filterOptions: CardsStore.getFilterOptions()
     }, () => {
-      CardsActions.loadCards(PER_PAGE, offset);
+      CardsActions.loadCards(PER_PAGE, offset, {
+        rarity: this.state.filterOptions.rarity,
+        strain: this.state.filterOptions.strain,
+        spawnArea:  this.state.filterOptions.spawnArea
+      });
 
       this.setState({
         pageNum: CardsStore.getPageNum()
-      })
+      });
     });
   }
 
@@ -73,7 +84,7 @@ class Home extends React.Component {
           <input type="button" value={this.state.showFilter ? 'Hide Filter' : 'Show Filter'} onClick={this._onToggleFilter} className={ShowFilterClass} />
           <hr />
           <div className="filter-block">
-            <CardFilter classData={FilterContentClass} />
+            <CardFilter classData={FilterContentClass} perpage={PER_PAGE} offset={this.state.offset} />
           </div>
           <div className="cards-block">
             <CardList data={this.state.allCards} />

@@ -4,7 +4,13 @@ import Constants from '../constants/constants';
 import $ from 'jquery';
 
 var CardActions = {
-  loadCards: function(perpage, offset){
+  updateFilter: function(options){
+    Dispatcher.dispatch({
+      actionType: Constants.UPDATE_FILTER
+    });
+  },
+
+  loadCards: function(perpage, offset, options){
     Dispatcher.dispatch({
       actionType: Constants.LOADED_CARDS
     });
@@ -13,7 +19,8 @@ var CardActions = {
       url: '/api/cards',
       data: {
         limit: perpage,
-        offset: offset
+        offset: offset,
+        options: options
       },
       dataType: 'json',
       type: 'GET'
@@ -32,7 +39,7 @@ var CardActions = {
     })
   },
 
-  loadStrains: function(perpage, offset){
+  loadStrains: function(){
     Dispatcher.dispatch({
       actionType: Constants.LOADED_STRAINS
     });
@@ -56,7 +63,7 @@ var CardActions = {
     })
   },
 
-  loadRarities: function(perpage, offset){
+  loadRarities: function(){
     Dispatcher.dispatch({
       actionType: Constants.LOADED_RARITIES
     });
@@ -80,7 +87,7 @@ var CardActions = {
     })
   },
 
-  loadSpawnAreas: function(perpage, offset){
+  loadSpawnAreas: function(){
     Dispatcher.dispatch({
       actionType: Constants.LOADED_SPAWN_AREAS
     });

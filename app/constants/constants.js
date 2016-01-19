@@ -2,6 +2,7 @@ var keyMirror = require('keymirror');
 
 module.exports = keyMirror({
   SEARCH_CARDS: null,
+  UPDATE_FILTER: null,
   LOADED_CARDS: null,
   LOADED_CARDS_SUCCESS: null,
   LOADED_CARDS_ERROR: null,

@@ -63,7 +63,11 @@ module.exports = {
   },
 
   index: function(req, res){
-    Card.find({}, function(err, cards){
+    Card.find({
+      rarity: (req.query.options.rarity == 'All') ? {$exists: true} : req.query.options.rarity,
+      strain: (req.query.options.strain == 'All') ? {$exists: true} : req.query.options.strain,
+      spawnArea: (req.query.options.spawnArea == 'All') ? {$exists: true} : req.query.options.spawnArea
+    }, function(err, cards){
       if(err)
         res.send(err);
 

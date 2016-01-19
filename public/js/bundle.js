@@ -24,7 +24,13 @@ var _jquery2 = _interopRequireDefault(_jquery);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var CardActions = {
-  loadCards: function loadCards(perpage, offset) {
+  updateFilter: function updateFilter(options) {
+    _dispatcher2.default.dispatch({
+      actionType: _constants2.default.UPDATE_FILTER
+    });
+  },
+
+  loadCards: function loadCards(perpage, offset, options) {
     _dispatcher2.default.dispatch({
       actionType: _constants2.default.LOADED_CARDS
     });
@@ -33,7 +39,8 @@ var CardActions = {
       url: '/api/cards',
       data: {
         limit: perpage,
-        offset: offset
+        offset: offset,
+        options: options
       },
       dataType: 'json',
       type: 'GET'
@@ -52,7 +59,7 @@ var CardActions = {
     });
   },
 
-  loadStrains: function loadStrains(perpage, offset) {
+  loadStrains: function loadStrains() {
     _dispatcher2.default.dispatch({
       actionType: _constants2.default.LOADED_STRAINS
     });
@@ -76,7 +83,7 @@ var CardActions = {
     });
   },
 
-  loadRarities: function loadRarities(perpage, offset) {
+  loadRarities: function loadRarities() {
     _dispatcher2.default.dispatch({
       actionType: _constants2.default.LOADED_RARITIES
     });
@@ -100,7 +107,7 @@ var CardActions = {
     });
   },
 
-  loadSpawnAreas: function loadSpawnAreas(perpage, offset) {
+  loadSpawnAreas: function loadSpawnAreas() {
     _dispatcher2.default.dispatch({
       actionType: _constants2.default.LOADED_SPAWN_AREAS
     });
@@ -355,7 +362,16 @@ var CardFilter = (function (_React$Component) {
     }
   }, {
     key: '_onRefresh',
-    value: function _onRefresh() {}
+    value: function _onRefresh() {
+      var filters = {
+        rarity: this.refs.rarity_list.value,
+        strain: this.refs.strain_list.value,
+        spawnArea: this.refs.spawn_area_list.value
+      };
+
+      _cardsActions2.default.loadCards(this.props.perpage, this.props.offset, filters);
+      _cardsActions2.default.updateFilter(filters);
+    }
   }, {
     key: 'render',
     value: function render() {
@@ -419,7 +435,7 @@ var CardFilter = (function (_React$Component) {
             ),
             _react2.default.createElement(
               'select',
-              { className: 'form-control' },
+              { className: 'form-control', ref: 'rarity_list' },
               myRarities
             )
           ),
@@ -433,7 +449,7 @@ var CardFilter = (function (_React$Component) {
             ),
             _react2.default.createElement(
               'select',
-              { className: 'form-control' },
+              { className: 'form-control', ref: 'spawn_area_list' },
               mySpawnAreas
             )
           ),
@@ -447,7 +463,7 @@ var CardFilter = (function (_React$Component) {
             ),
             _react2.default.createElement(
               'select',
-              { className: 'form-control' },
+              { className: 'form-control', ref: 'strain_list' },
               myStrains
             )
           ),
@@ -732,6 +748,7 @@ var Home = (function (_React$Component) {
 
     _this.state = {
       allCards: _cardsStores2.default.getAllCards(),
+      filterOptions: _cardsStores2.default.getFilterOptions(),
       offset: 0,
       showFilter: false
     };
@@ -747,7 +764,11 @@ var Home = (function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       _cardsStores2.default.addChangeListener(this._onLoad);
-      _cardsActions2.default.loadCards(PER_PAGE, this.state.offset);
+      _cardsActions2.default.loadCards(PER_PAGE, this.state.offset, {
+        rarity: this.state.filterOptions.rarity,
+        strain: this.state.filterOptions.strain,
+        spawnArea: this.state.filterOptions.spawnArea
+      });
     }
   }, {
     key: 'componentWillUnmount',
@@ -759,7 +780,8 @@ var Home = (function (_React$Component) {
     key: '_onLoad',
     value: function _onLoad() {
       this.setState({
-        allCards: _cardsStores2.default.getAllCards()
+        allCards: _cardsStores2.default.getAllCards(),
+        pageNum: _cardsStores2.default.getPageNum()
       });
     }
   }, {
@@ -771,9 +793,14 @@ var Home = (function (_React$Component) {
       var offset = Math.ceil(selected * PER_PAGE);
 
       this.setState({
-        offset: offset
+        offset: offset,
+        filterOptions: _cardsStores2.default.getFilterOptions()
       }, function () {
-        _cardsActions2.default.loadCards(PER_PAGE, offset);
+        _cardsActions2.default.loadCards(PER_PAGE, offset, {
+          rarity: _this2.state.filterOptions.rarity,
+          strain: _this2.state.filterOptions.strain,
+          spawnArea: _this2.state.filterOptions.spawnArea
+        });
 
         _this2.setState({
           pageNum: _cardsStores2.default.getPageNum()
@@ -809,7 +836,7 @@ var Home = (function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'filter-block' },
-            _react2.default.createElement(_CardFilter2.default, { classData: FilterContentClass })
+            _react2.default.createElement(_CardFilter2.default, { classData: FilterContentClass, perpage: PER_PAGE, offset: this.state.offset })
           ),
           _react2.default.createElement(
             'div',
@@ -851,6 +878,7 @@ var keyMirror = require('keymirror');
 
 module.exports = keyMirror({
   SEARCH_CARDS: null,
+  UPDATE_FILTER: null,
   LOADED_CARDS: null,
   LOADED_CARDS_SUCCESS: null,
   LOADED_CARDS_ERROR: null,
@@ -996,6 +1024,11 @@ var allStrains = [];
 var pageNum = 0;
 var request_error = '';
 var CHANGE_EVENT = 'change';
+var filterOptions = {
+  rarity: 'All',
+  strain: 'All',
+  spawnArea: 'All'
+};
 
 var CardsStore = (0, _objectAssign2.default)({}, EventEmitter.prototype, {
   getAllCards: function getAllCards() {
@@ -1016,6 +1049,10 @@ var CardsStore = (0, _objectAssign2.default)({}, EventEmitter.prototype, {
 
   getStrains: function getStrains() {
     return allStrains;
+  },
+
+  getFilterOptions: function getFilterOptions() {
+    return filterOptions;
   },
 
   getRequestError: function getRequestError() {
@@ -1065,6 +1102,10 @@ _dispatcher2.default.register(function (payload) {
     case _constants2.default.LOADED_SPAWN_AREAS_ERROR:
     case _constants2.default.LOADED_STRAINS_SUCCESS:
       request_error = payload.error;
+      CardsStore.emitChange();
+      break;
+    case _constants2.default.UPDATE_FILTER:
+      filterOptions = payload.data;
       CardsStore.emitChange();
       break;
   }

@@ -40,7 +40,14 @@ class CardFilter extends React.Component {
   }
 
   _onRefresh() {
+    var filters = {
+      rarity: this.refs.rarity_list.value,
+      strain: this.refs.strain_list.value,
+      spawnArea: this.refs.spawn_area_list.value
+    };
 
+    CardsActions.loadCards(this.props.perpage, this.props.offset, filters);
+    CardsActions.updateFilter(filters);
   }
 
   render() {
@@ -75,21 +82,21 @@ class CardFilter extends React.Component {
         <div className="row">
           <div className="col-md-3">
             <p>Rarity:</p>
-            <select className="form-control">
+            <select className="form-control" ref="rarity_list">
               {myRarities}
             </select>
           </div>
 
           <div className="col-md-3">
             <p>Spawn Area:</p>
-            <select className="form-control">
+            <select className="form-control" ref="spawn_area_list">
               {mySpawnAreas}
             </select>
           </div>
 
           <div className="col-md-3">
             <p>Strain:</p>
-            <select className="form-control">
+            <select className="form-control" ref="strain_list">
               {myStrains}
             </select>
           </div>
