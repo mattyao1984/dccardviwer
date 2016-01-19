@@ -37,7 +37,6 @@ class Home extends React.Component {
 
   componentWillUnmount() {
     CardsStore.removeChangeListener(this._onLoad);
-    CardsStore.removeChangeListener(this._onChange);
   }
 
   _onLoad() {
@@ -48,13 +47,17 @@ class Home extends React.Component {
   }
 
   _onPageClick(data){
+    console.log('data: ', data, this);
     let selected = data.selected;
     let offset = Math.ceil(selected * PER_PAGE);
+    let _obj = this;
 
     this.setState({
       offset: offset,
       filterOptions: CardsStore.getFilterOptions()
     }, () => {
+
+      console.log('Click options: ', _obj.state);
       CardsActions.loadCards(PER_PAGE, offset, {
         rarity: this.state.filterOptions.rarity,
         strain: this.state.filterOptions.strain,

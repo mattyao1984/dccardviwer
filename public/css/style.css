@@ -72,8 +72,7 @@ footer {
     display: block; }
 
 ul.card-list {
-  width: 100%;
-  text-align: center; }
+  width: 100%; }
   ul.card-list li {
     list-style: none;
     display: inline-block;

@@ -6,7 +6,8 @@ import $ from 'jquery';
 var CardActions = {
   updateFilter: function(options){
     Dispatcher.dispatch({
-      actionType: Constants.UPDATE_FILTER
+      actionType: Constants.UPDATE_FILTER,
+      data: options
     });
   },
 

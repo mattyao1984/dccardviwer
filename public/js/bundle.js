@@ -26,7 +26,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var CardActions = {
   updateFilter: function updateFilter(options) {
     _dispatcher2.default.dispatch({
-      actionType: _constants2.default.UPDATE_FILTER
+      actionType: _constants2.default.UPDATE_FILTER,
+      data: options
     });
   },
 
@@ -774,7 +775,6 @@ var Home = (function (_React$Component) {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       _cardsStores2.default.removeChangeListener(this._onLoad);
-      _cardsStores2.default.removeChangeListener(this._onChange);
     }
   }, {
     key: '_onLoad',
@@ -789,13 +789,17 @@ var Home = (function (_React$Component) {
     value: function _onPageClick(data) {
       var _this2 = this;
 
+      console.log('data: ', data, this);
       var selected = data.selected;
       var offset = Math.ceil(selected * PER_PAGE);
+      var _obj = this;
 
       this.setState({
         offset: offset,
         filterOptions: _cardsStores2.default.getFilterOptions()
       }, function () {
+
+        console.log('Click options: ', _obj.state);
         _cardsActions2.default.loadCards(PER_PAGE, offset, {
           rarity: _this2.state.filterOptions.rarity,
           strain: _this2.state.filterOptions.strain,
