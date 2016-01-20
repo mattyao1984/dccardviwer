@@ -1,13 +1,19 @@
 import React from 'react';
 import Dispatcher from '../dispatcher/dispatcher';
 import Constants from '../constants/constants';
-import $ from 'jquery';
 
 var CardActions = {
   updateFilter: function(options){
     Dispatcher.dispatch({
       actionType: Constants.UPDATE_FILTER,
       data: options
+    });
+  },
+
+  viewCard: function(id){
+    Dispatcher.dispatch({
+      actionType: Constants.VIEW_CARD,
+      cardId: id
     });
   },
 

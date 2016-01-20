@@ -1,12 +1,12 @@
 import React from 'react';
 import logger from 'morgan';
 import ReactPaginate from 'react-paginate';
-import $ from 'jquery';
 import _ from 'lodash';
 import CardsStore from '../../stores/cardsStores';
 import CardsActions from '../../actions/cardsActions';
 import CardList from '../CardList/CardList';
 import CardFilter from '../CardFilter/CardFilter';
+import CardModal from '../CardModal/CardModal';
 
 var PER_PAGE = 10;
 
@@ -32,6 +32,18 @@ class Home extends React.Component {
       rarity: this.state.filterOptions.rarity,
       strain: this.state.filterOptions.strain,
       spawnArea:  this.state.filterOptions.spawnArea
+    });
+
+    $('.card-info-link').magnificPopup({
+      type: 'inline',
+  		fixedContentPos: false,
+  		fixedBgPos: true,
+  		overflowY: 'auto',
+  		closeBtnInside: true,
+  		preloader: false,
+  		midClick: true,
+  		removalDelay: 300,
+  		mainClass: 'my-mfp-zoom-in'
     });
   }
 
@@ -92,6 +104,8 @@ class Home extends React.Component {
           <div className="cards-block">
             <CardList data={this.state.allCards} />
           </div>
+
+          <CardModal />
 
           <ReactPaginate previousLabel={"previous"}
            nextLabel={"next"}

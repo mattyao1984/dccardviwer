@@ -1,6 +1,5 @@
 import React from 'react';
 import logger from 'morgan';
-import $ from 'jquery';
 import _ from 'lodash';
 import CardsStore from '../../stores/cardsStores';
 import CardsActions from '../../actions/cardsActions';

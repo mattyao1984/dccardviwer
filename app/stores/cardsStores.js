@@ -2,7 +2,6 @@ import React from 'react';
 import Dispatcher from '../dispatcher/dispatcher';
 import Constants from '../constants/constants';
 import events from 'events';
-import $ from 'jquery';
 import _ from 'lodash';
 import assign from 'object-assign';
 
@@ -19,6 +18,7 @@ var filterOptions = {
   strain: 'All',
   spawnArea: 'All'
 }
+var selectedCard = {};
 
 var CardsStore = assign({}, EventEmitter.prototype, {
   getAllCards: function(){
@@ -47,6 +47,10 @@ var CardsStore = assign({}, EventEmitter.prototype, {
 
   getRequestError: function(){
     return request_error;
+  },
+
+  getSelectedCard: function(){
+    return selectedCard;
   },
 
   emitChange: function() {
