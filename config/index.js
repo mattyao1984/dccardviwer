@@ -1,8 +1,10 @@
+'use strict';
+
 var path = require('path');
 var settings = {
   env: process.env.NODE_ENV,
   root: path.normalize(__dirname + '/..'),
-  port: process.env.PORT || 3002,
+  port: process.env.PORT || 3000,
 
   // Server IP
   ip: process.env.IP || '0.0.0.0',

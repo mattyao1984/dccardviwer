@@ -1,4 +1,6 @@
-require("babel-polyfill");
+'use strict';
+
+require('babel-polyfill');
 
 var gulp = require('gulp');
 var gutil = require('gulp-util');
@@ -27,6 +29,7 @@ var production = process.env.NODE_ENV === 'production';
 
 var dependencies = [
   'alt',
+  'flux',
   'react',
   'react-dom',
   'react-router',

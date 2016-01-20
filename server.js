@@ -1,7 +1,8 @@
+'use strict';
+
 /**
  * Main application file
  */
-
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var express = require('express');
