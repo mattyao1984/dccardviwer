@@ -1,11 +1,7 @@
 /**
  * Express configuration
  */
-
-'use strict';
-
 var express = require('express');
-var logger = require('morgan');
 var bodyParser = require('body-parser');
 var compression = require('compression');
 var path = require('path');
@@ -16,8 +12,6 @@ var mongoose = require('mongoose');
 var engines = require('consolidate');
 
 module.exports = function(app){
-  app.use(logger('development'));
-  
   app.set('views', __dirname + '/views');
   app.engine('html', engines.mustache);
   app.set('view engine', 'html');

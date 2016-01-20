@@ -1,7 +1,4 @@
-'use strict';
-
 var path = require('path');
-
 var settings = {
   env: process.env.NODE_ENV,
   root: path.normalize(__dirname + '/..'),

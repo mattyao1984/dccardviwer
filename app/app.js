@@ -10,7 +10,7 @@ class App extends React.Component {
           {this.props.children}
         <FooterComponent />
       </div>
-    )
+    );
   }
 }
 

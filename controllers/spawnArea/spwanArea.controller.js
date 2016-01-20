@@ -1,5 +1,3 @@
-'use strict';
-
 var mongoose = require('mongoose');
 var SpawnArea = require('../../models/spawnArea');
 var config = require('../../config');

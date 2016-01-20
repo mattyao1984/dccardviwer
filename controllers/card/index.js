@@ -1,5 +1,3 @@
-'use strict';
-
 var express = require('express');
 var CardCtrl = require('./card.controller');
 var router = express.Router();

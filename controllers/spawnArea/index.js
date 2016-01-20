@@ -1,5 +1,3 @@
-'use strict';
-
 var express = require('express');
 var SpawnAreaCtrl = require('./spwanArea.controller');
 var router = express.Router();

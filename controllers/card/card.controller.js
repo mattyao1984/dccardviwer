@@ -1,5 +1,3 @@
-'use strict';
-
 var Card = require('../../models/card');
 var config = require('../../config');
 var request = require('request');
