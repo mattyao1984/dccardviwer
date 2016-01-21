@@ -27,10 +27,10 @@ var CardActions = {
     });
   },
 
-  viewCard: function viewCard(id) {
+  selectCard: function selectCard(cardId) {
     _dispatcher2.default.dispatch({
-      actionType: _constants2.default.VIEW_CARD,
-      cardId: id
+      actionType: _constants2.default.SELECT_CARD,
+      cardId: cardId
     });
   },
 
@@ -239,33 +239,17 @@ var Card = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Card).call(this));
 
-    _this.state = {
-      selectedCard: {}
-    };
-
     _this.render = _this.render.bind(_this);
     _this._viewCard = _this._viewCard.bind(_this);
     return _this;
   }
 
   _createClass(Card, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      $('.card-info-link').magnificPopup({
-        type: 'inline',
-        fixedContentPos: false,
-        fixedBgPos: true,
-        overflowY: 'auto',
-        closeBtnInside: true,
-        preloader: false,
-        midClick: true,
-        removalDelay: 300,
-        mainClass: 'my-mfp-zoom-in'
-      });
-    }
-  }, {
     key: '_viewCard',
-    value: function _viewCard() {}
+    value: function _viewCard() {
+      _cardsActions2.default.selectCard(this.props.cardData._id);
+      $('.card-modal, .modal-content').toggleClass('show');
+    }
   }, {
     key: 'render',
     value: function render() {
@@ -274,7 +258,7 @@ var Card = function (_React$Component) {
 
       return _react2.default.createElement(
         'a',
-        { className: 'card-info-link', href: '#card-modal', onClick: this._viewCard },
+        { className: 'card-info-link', onClick: this._viewCard },
         _react2.default.createElement(
           'div',
           { className: 'flipper' },
@@ -625,13 +609,36 @@ var CardModal = function (_React$Component) {
   function CardModal() {
     _classCallCheck(this, CardModal);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(CardModal).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CardModal).call(this));
+
+    _this.render = _this.render.bind(_this);
+    return _this;
   }
 
   _createClass(CardModal, [{
+    key: 'hideModal',
+    value: function hideModal() {
+      $('.card-modal, .modal-content').toggleClass('show');
+    }
+  }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('div', { className: 'zoom-anim-dialog mfp-hide', id: 'card-modal' });
+      return _react2.default.createElement(
+        'div',
+        { className: 'card-modal' },
+        _react2.default.createElement(
+          'div',
+          { className: 'modal-content' },
+          _react2.default.createElement('a', { className: 'close-modal', onClick: this.hideModal }),
+          this.props.data.name,
+          _react2.default.createElement(
+            'h3',
+            null,
+            'Test line.'
+          )
+        ),
+        _react2.default.createElement('div', { className: 'modal-overlay', onClick: this.hideModal })
+      );
     }
   }]);
 
@@ -828,7 +835,8 @@ var Home = function (_React$Component) {
       allCards: _cardsStores2.default.getAllCards(),
       filterOptions: _cardsStores2.default.getFilterOptions(),
       offset: 0,
-      showFilter: false
+      showFilter: false,
+      selectedCard: _cardsStores2.default.getSelectedCard()
     };
 
     _this.render = _this.render.bind(_this);
@@ -870,7 +878,8 @@ var Home = function (_React$Component) {
     value: function _onLoad() {
       this.setState({
         allCards: _cardsStores2.default.getAllCards(),
-        pageNum: _cardsStores2.default.getPageNum()
+        pageNum: _cardsStores2.default.getPageNum(),
+        selectedCard: _cardsStores2.default.getSelectedCard()
       });
     }
   }, {
@@ -878,7 +887,6 @@ var Home = function (_React$Component) {
     value: function _onPageClick(data) {
       var _this2 = this;
 
-      console.log('data: ', data, this);
       var selected = data.selected;
       var offset = Math.ceil(selected * PER_PAGE);
       var _obj = this;
@@ -887,8 +895,6 @@ var Home = function (_React$Component) {
         offset: offset,
         filterOptions: _cardsStores2.default.getFilterOptions()
       }, function () {
-
-        console.log('Click options: ', _obj.state);
         _cardsActions2.default.loadCards(PER_PAGE, offset, {
           rarity: _this2.state.filterOptions.rarity,
           strain: _this2.state.filterOptions.strain,
@@ -929,14 +935,14 @@ var Home = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'filter-block' },
-            _react2.default.createElement(_CardFilter2.default, { classData: FilterContentClass, perpage: PER_PAGE, offset: this.state.offset })
+            _react2.default.createElement(_CardFilter2.default, { classData: FilterContentClass, perpage: PER_PAGE, offset: this.state.offset, key: 'card-filter' })
           ),
           _react2.default.createElement(
             'div',
             { className: 'cards-block' },
-            _react2.default.createElement(_CardList2.default, { data: this.state.allCards })
+            _react2.default.createElement(_CardList2.default, { data: this.state.allCards, key: 'card-list' })
           ),
-          _react2.default.createElement(_CardModal2.default, null),
+          _react2.default.createElement(_CardModal2.default, { data: this.state.selectedCard, key: 'card-modal' }),
           _react2.default.createElement(_reactPaginate2.default, { previousLabel: "previous",
             nextLabel: "next",
             breakLabel: _react2.default.createElement(
@@ -989,7 +995,7 @@ module.exports = keyMirror({
   LOADED_SPAWN_AREAS_SUCCESS: null,
   LOADED_SPAWN_AREAS_ERROR: null,
 
-  VIEW_CARD: null
+  SELECT_CARD: null
 });
 
 },{"keymirror":45}],11:[function(require,module,exports){
@@ -1203,6 +1209,12 @@ _dispatcher2.default.register(function (payload) {
       break;
     case _constants2.default.UPDATE_FILTER:
       filterOptions = payload.data;
+      CardsStore.emitChange();
+      break;
+    case _constants2.default.SELECT_CARD:
+      selectedCard = _lodash2.default.find(allCards, function (card) {
+        return card._id == payload.cardId;
+      });
       CardsStore.emitChange();
       break;
   }

@@ -19,5 +19,5 @@ module.exports = keyMirror({
   LOADED_SPAWN_AREAS_SUCCESS: null,
   LOADED_SPAWN_AREAS_ERROR: null,
 
-  VIEW_CARD: null
+  SELECT_CARD: null
 })

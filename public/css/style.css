@@ -134,15 +134,50 @@ ul.card-list {
   .card-info-link img {
     width: 100%; }
 
-#card-modal {
-  background: white;
-  padding: 20px 30px;
-  text-align: left;
-  width: 800px;
-  height: 640px;
-  color: #000;
-  margin: 40px auto;
-  position: relative; }
+.card-modal {
+  position: relative;
+  display: none; }
+  .card-modal.show {
+    display: block; }
+  .card-modal .close-modal {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    display: block;
+    right: -13px;
+    top: -13px;
+    z-index: 10;
+    background: url("../img/close-modal.png") no-repeat; }
+  .card-modal .modal-content {
+    background: white;
+    padding: 20px 30px;
+    text-align: left;
+    width: 800px;
+    height: 540px;
+    color: #000;
+    margin: 40px auto;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    z-index: 9;
+    opacity: 0;
+    -webkit-transition: all 0.4s linear;
+    -moz-transition: all 0.4s linear;
+    -ms-transition: all 0.4s linear;
+    -o-transition: all 0.4s linear;
+    transition: all 0.4s linear; }
+    .card-modal .modal-content.show {
+      opacity: 1; }
+  .card-modal .modal-overlay {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    margin: auto;
+    z-index: 6;
+    position: fixed; }
 
 .my-mfp-zoom-in .zoom-anim-dialog {
   opacity: 0;

@@ -10,10 +10,10 @@ var CardActions = {
     });
   },
 
-  viewCard: function(id){
+  selectCard: function(cardId){
     Dispatcher.dispatch({
-      actionType: Constants.VIEW_CARD,
-      cardId: id
+      actionType: Constants.SELECT_CARD,
+      cardId: cardId
     });
   },
 

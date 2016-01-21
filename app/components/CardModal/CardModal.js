@@ -5,10 +5,24 @@ import CardsStore from '../../stores/cardsStores';
 import CardsActions from '../../actions/cardsActions';
 
 class CardModal extends React.Component {
+  constructor() {
+    super();
+    this.render = this.render.bind(this);
+  }
+
+  hideModal() {
+    $('.card-modal, .modal-content').toggleClass('show');
+  }
+
   render() {
     return(
-      <div className="zoom-anim-dialog mfp-hide" id="card-modal">
-
+      <div className="card-modal">
+        <div className="modal-content">
+          <a className="close-modal" onClick={this.hideModal}></a>
+          {this.props.data.name}
+          <h3>Test line.</h3>
+        </div>
+        <div className="modal-overlay" onClick={this.hideModal}></div>
       </div>
     );
   }

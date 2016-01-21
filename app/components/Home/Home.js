@@ -17,7 +17,8 @@ class Home extends React.Component {
       allCards: CardsStore.getAllCards(),
       filterOptions: CardsStore.getFilterOptions(),
       offset: 0,
-      showFilter: false
+      showFilter: false,
+      selectedCard: CardsStore.getSelectedCard()
     };
 
     this.render = this.render.bind(this);
@@ -54,12 +55,12 @@ class Home extends React.Component {
   _onLoad() {
     this.setState({
       allCards: CardsStore.getAllCards(),
-      pageNum: CardsStore.getPageNum()
+      pageNum: CardsStore.getPageNum(),
+      selectedCard: CardsStore.getSelectedCard()
     });
   }
 
   _onPageClick(data){
-    console.log('data: ', data, this);
     let selected = data.selected;
     let offset = Math.ceil(selected * PER_PAGE);
     let _obj = this;
@@ -68,8 +69,6 @@ class Home extends React.Component {
       offset: offset,
       filterOptions: CardsStore.getFilterOptions()
     }, () => {
-
-      console.log('Click options: ', _obj.state);
       CardsActions.loadCards(PER_PAGE, offset, {
         rarity: this.state.filterOptions.rarity,
         strain: this.state.filterOptions.strain,
@@ -99,13 +98,13 @@ class Home extends React.Component {
           <input type="button" value={this.state.showFilter ? 'Hide Filter' : 'Show Filter'} onClick={this._onToggleFilter} className={ShowFilterClass} />
           <hr />
           <div className="filter-block">
-            <CardFilter classData={FilterContentClass} perpage={PER_PAGE} offset={this.state.offset} />
+            <CardFilter classData={FilterContentClass} perpage={PER_PAGE} offset={this.state.offset} key="card-filter" />
           </div>
           <div className="cards-block">
-            <CardList data={this.state.allCards} />
+            <CardList data={this.state.allCards} key="card-list" />
           </div>
 
-          <CardModal />
+          <CardModal data={this.state.selectedCard} key="card-modal" />
 
           <ReactPaginate previousLabel={"previous"}
            nextLabel={"next"}

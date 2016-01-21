@@ -102,6 +102,12 @@ Dispatcher.register((payload) => {
       filterOptions = payload.data;
       CardsStore.emitChange();
       break;
+    case Constants.SELECT_CARD:
+      selectedCard = _.find(allCards, function(card){
+        return card._id == payload.cardId;
+      });
+      CardsStore.emitChange();
+      break;
   }
 });
 
