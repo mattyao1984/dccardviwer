@@ -44,7 +44,8 @@ class Home extends React.Component {
     this.setState({
       allCards: CardsStore.getAllCards(),
       pageNum: CardsStore.getPageNum(),
-      selectedCard: CardsStore.getSelectedCard()
+      selectedCard: CardsStore.getSelectedCard(),
+      filterOptions: CardsStore.getFilterOptions()
     });
   }
 
@@ -86,7 +87,7 @@ class Home extends React.Component {
           <input type="button" value={this.state.showFilter ? 'Hide Filter' : 'Show Filter'} onClick={this._onToggleFilter} className={ShowFilterClass} />
           <hr />
           <div className="filter-block">
-            <CardFilter classData={FilterContentClass} perpage={PER_PAGE} offset={this.state.offset} key="card-filter" />
+            <CardFilter classData={FilterContentClass} perpage={PER_PAGE} offset={this.state.offset} key="card-filter" filterData={this.state.filterOptions} />
           </div>
           <div className="cards-block">
             <CardList data={this.state.allCards} key="card-list" />

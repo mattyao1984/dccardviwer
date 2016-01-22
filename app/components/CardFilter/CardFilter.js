@@ -16,6 +16,7 @@ class CardFilter extends React.Component {
     this.render = this.render.bind(this);
     this._onLoad = this._onLoad.bind(this);
     this._onRefresh = this._onRefresh.bind(this);
+    this._onChangeFilter = this._onChangeFilter.bind(this);
   }
 
   componentDidMount() {
@@ -27,7 +28,6 @@ class CardFilter extends React.Component {
 
   componentWillUnmount() {
     CardsStore.removeChangeListener(this._onLoad);
-    CardsStore.removeChangeListener(this._onRefresh);
   }
 
   _onLoad() {
@@ -46,7 +46,18 @@ class CardFilter extends React.Component {
     };
 
     CardsActions.loadCards(this.props.perpage, this.props.offset, filters);
+  }
+
+  _onChangeFilter() {
+    var filters = {
+      rarity: this.refs.rarity_list.value,
+      strain: this.refs.strain_list.value,
+      spawnArea: this.refs.spawn_area_list.value
+    };
+
     CardsActions.updateFilter(filters);
+
+    return filters;
   }
 
   render() {
@@ -70,11 +81,10 @@ class CardFilter extends React.Component {
     );
 
     mySpawnAreas.push(<option value='All' key='all_spawn_area'>All</option>);
-    console.log('spawnAreas: ', this.state.allSpawnAreas);
     this.state.allSpawnAreas.forEach((sp, index) => {
       if(sp != null){
         mySpawnAreas.push(
-          <option value={sp} key={index + '_spawn_area'}>{sp}</option>
+          <option key={index + '_spawn_area'}>{sp}</option>
         )
       }
     });
@@ -84,21 +94,21 @@ class CardFilter extends React.Component {
         <div className="row">
           <div className="col-md-3">
             <p>Rarity:</p>
-            <select className="form-control" ref="rarity_list">
+            <select className="form-control" ref="rarity_list" value={this.props.filterData.rarity} onChange={this._onChangeFilter}>
               {myRarities}
             </select>
           </div>
 
           <div className="col-md-3">
             <p>Spawn Area:</p>
-            <select className="form-control" ref="spawn_area_list">
+            <select className="form-control" ref="spawn_area_list" value={this.props.filterData.spawnArea} onChange={this._onChangeFilter}>
               {mySpawnAreas}
             </select>
           </div>
 
           <div className="col-md-3">
             <p>Strain:</p>
-            <select className="form-control" ref="strain_list">
+            <select className="form-control" ref="strain_list" value={this.props.filterData.strain} onChange={this._onChangeFilter}>
               {myStrains}
             </select>
           </div>

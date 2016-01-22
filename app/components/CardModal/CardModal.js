@@ -100,6 +100,18 @@ class CardModal extends React.Component {
                   </tr>
                 </tbody>
               </table>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Spawn Area</th>
+                    <th>{this.props.data.spawnArea}</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

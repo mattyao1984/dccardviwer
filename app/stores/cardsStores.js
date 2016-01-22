@@ -13,11 +13,14 @@ var allStrains = [];
 var pageNum = 0;
 var request_error = '';
 var CHANGE_EVENT = 'change';
+
+//Filter presets
 var filterOptions = {
-  rarity: 'All',
+  rarity: 'Legendary',
   strain: 'All',
-  spawnArea: 'All'
+  spawnArea: 'Gould Square'
 }
+
 var selectedCard = {
   stats: {},
   skillset: {}

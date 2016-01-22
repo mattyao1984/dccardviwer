@@ -340,6 +340,7 @@ var CardFilter = function (_React$Component) {
     _this.render = _this.render.bind(_this);
     _this._onLoad = _this._onLoad.bind(_this);
     _this._onRefresh = _this._onRefresh.bind(_this);
+    _this._onChangeFilter = _this._onChangeFilter.bind(_this);
     return _this;
   }
 
@@ -355,7 +356,6 @@ var CardFilter = function (_React$Component) {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       _cardsStores2.default.removeChangeListener(this._onLoad);
-      _cardsStores2.default.removeChangeListener(this._onRefresh);
     }
   }, {
     key: '_onLoad',
@@ -376,7 +376,19 @@ var CardFilter = function (_React$Component) {
       };
 
       _cardsActions2.default.loadCards(this.props.perpage, this.props.offset, filters);
+    }
+  }, {
+    key: '_onChangeFilter',
+    value: function _onChangeFilter() {
+      var filters = {
+        rarity: this.refs.rarity_list.value,
+        strain: this.refs.strain_list.value,
+        spawnArea: this.refs.spawn_area_list.value
+      };
+
       _cardsActions2.default.updateFilter(filters);
+
+      return filters;
     }
   }, {
     key: 'render',
@@ -417,12 +429,11 @@ var CardFilter = function (_React$Component) {
         { value: 'All', key: 'all_spawn_area' },
         'All'
       ));
-      console.log('spawnAreas: ', this.state.allSpawnAreas);
       this.state.allSpawnAreas.forEach(function (sp, index) {
         if (sp != null) {
           mySpawnAreas.push(_react2.default.createElement(
             'option',
-            { value: sp, key: index + '_spawn_area' },
+            { key: index + '_spawn_area' },
             sp
           ));
         }
@@ -444,7 +455,7 @@ var CardFilter = function (_React$Component) {
             ),
             _react2.default.createElement(
               'select',
-              { className: 'form-control', ref: 'rarity_list' },
+              { className: 'form-control', ref: 'rarity_list', value: this.props.filterData.rarity, onChange: this._onChangeFilter },
               myRarities
             )
           ),
@@ -458,7 +469,7 @@ var CardFilter = function (_React$Component) {
             ),
             _react2.default.createElement(
               'select',
-              { className: 'form-control', ref: 'spawn_area_list' },
+              { className: 'form-control', ref: 'spawn_area_list', value: this.props.filterData.spawnArea, onChange: this._onChangeFilter },
               mySpawnAreas
             )
           ),
@@ -472,7 +483,7 @@ var CardFilter = function (_React$Component) {
             ),
             _react2.default.createElement(
               'select',
-              { className: 'form-control', ref: 'strain_list' },
+              { className: 'form-control', ref: 'strain_list', value: this.props.filterData.strain, onChange: this._onChangeFilter },
               myStrains
             )
           ),
@@ -884,6 +895,29 @@ var CardModal = function (_React$Component) {
                     )
                   )
                 )
+              ),
+              _react2.default.createElement(
+                'table',
+                null,
+                _react2.default.createElement(
+                  'thead',
+                  null,
+                  _react2.default.createElement(
+                    'tr',
+                    null,
+                    _react2.default.createElement(
+                      'th',
+                      null,
+                      'Spawn Area'
+                    ),
+                    _react2.default.createElement(
+                      'th',
+                      null,
+                      this.props.data.spawnArea
+                    )
+                  )
+                ),
+                _react2.default.createElement('tbody', null)
               )
             )
           )
@@ -1123,7 +1157,8 @@ var Home = function (_React$Component) {
       this.setState({
         allCards: _cardsStores2.default.getAllCards(),
         pageNum: _cardsStores2.default.getPageNum(),
-        selectedCard: _cardsStores2.default.getSelectedCard()
+        selectedCard: _cardsStores2.default.getSelectedCard(),
+        filterOptions: _cardsStores2.default.getFilterOptions()
       });
     }
   }, {
@@ -1179,7 +1214,7 @@ var Home = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'filter-block' },
-            _react2.default.createElement(_CardFilter2.default, { classData: FilterContentClass, perpage: PER_PAGE, offset: this.state.offset, key: 'card-filter' })
+            _react2.default.createElement(_CardFilter2.default, { classData: FilterContentClass, perpage: PER_PAGE, offset: this.state.offset, key: 'card-filter', filterData: this.state.filterOptions })
           ),
           _react2.default.createElement(
             'div',
@@ -1366,11 +1401,14 @@ var allStrains = [];
 var pageNum = 0;
 var request_error = '';
 var CHANGE_EVENT = 'change';
+
+//Filter presets
 var filterOptions = {
-  rarity: 'All',
+  rarity: 'Legendary',
   strain: 'All',
-  spawnArea: 'All'
+  spawnArea: 'Gould Square'
 };
+
 var selectedCard = {
   stats: {},
   skillset: {}
