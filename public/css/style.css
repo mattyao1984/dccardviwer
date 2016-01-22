@@ -106,6 +106,15 @@ ul.card-list {
     position: absolute;
     top: 0;
     left: 0; }
+  .card-info-link .image-loader {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto; }
   .card-info-link:hover {
     cursor: pointer; }
     .card-info-link:hover .flipper {

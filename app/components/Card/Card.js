@@ -1,6 +1,7 @@
 import React from 'react';
 import logger from 'morgan';
 import _ from 'lodash';
+import ImageLoader from 'react-imageloader';
 import CardsStore from '../../stores/cardsStores';
 import CardsActions from '../../actions/cardsActions';
 
@@ -17,6 +18,10 @@ class Card extends React.Component {
     $('.card-modal, .modal-content').toggleClass('show');
   }
 
+  preloader() {
+    return <img src="/img/ajax-loader.gif" className="image-loader" />;
+  }
+
   render() {
     var data = this.props.cardData;
     var imgPath = 'http://dccards.info/assets/images/cards/card/' + data.image;
@@ -25,7 +30,11 @@ class Card extends React.Component {
       <a className="card-info-link" onClick={this._viewCard}>
         <div className="flipper">
           <div className="flipper-front">
-            <img src={imgPath} />
+              <ImageLoader
+                src={imgPath}
+                preloader={this.preloader}>
+                Image load failed!
+              </ImageLoader>
           </div>
 
           <div className="flipper-back">

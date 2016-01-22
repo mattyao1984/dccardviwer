@@ -215,6 +215,10 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
+var _reactImageloader = require('react-imageloader');
+
+var _reactImageloader2 = _interopRequireDefault(_reactImageloader);
+
 var _cardsStores = require('../../stores/cardsStores');
 
 var _cardsStores2 = _interopRequireDefault(_cardsStores);
@@ -251,6 +255,11 @@ var Card = function (_React$Component) {
       $('.card-modal, .modal-content').toggleClass('show');
     }
   }, {
+    key: 'preloader',
+    value: function preloader() {
+      return _react2.default.createElement('img', { src: '/img/ajax-loader.gif', className: 'image-loader' });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var data = this.props.cardData;
@@ -265,7 +274,13 @@ var Card = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'flipper-front' },
-            _react2.default.createElement('img', { src: imgPath })
+            _react2.default.createElement(
+              _reactImageloader2.default,
+              {
+                src: imgPath,
+                preloader: this.preloader },
+              'Image load failed!'
+            )
           ),
           _react2.default.createElement(
             'div',
@@ -286,7 +301,7 @@ var Card = function (_React$Component) {
 
 exports.default = Card;
 
-},{"../../actions/cardsActions":1,"../../stores/cardsStores":14,"lodash":"lodash","morgan":46,"react":"react"}],4:[function(require,module,exports){
+},{"../../actions/cardsActions":1,"../../stores/cardsStores":14,"lodash":"lodash","morgan":46,"react":"react","react-imageloader":58}],4:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1250,7 +1265,7 @@ var Home = function (_React$Component) {
 
 exports.default = Home;
 
-},{"../../actions/cardsActions":1,"../../stores/cardsStores":14,"../CardFilter/CardFilter":4,"../CardList/CardList":5,"../CardModal/CardModal":6,"lodash":"lodash","morgan":46,"react":"react","react-paginate":61}],10:[function(require,module,exports){
+},{"../../actions/cardsActions":1,"../../stores/cardsStores":14,"../CardFilter/CardFilter":4,"../CardList/CardList":5,"../CardModal/CardModal":6,"lodash":"lodash","morgan":46,"react":"react","react-paginate":62}],10:[function(require,module,exports){
 'use strict';
 
 var keyMirror = require('keymirror');
@@ -4509,7 +4524,7 @@ function readState(key) {
   return null;
 }
 }).call(this,require('_process'))
-},{"_process":56,"warning":73}],33:[function(require,module,exports){
+},{"_process":56,"warning":74}],33:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5244,7 +5259,7 @@ function parsePath(path) {
 exports['default'] = parsePath;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"./extractPath":40,"_process":56,"warning":73}],42:[function(require,module,exports){
+},{"./extractPath":40,"_process":56,"warning":74}],42:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -5271,7 +5286,7 @@ function runTransitionHook(hook, location, callback) {
 exports['default'] = runTransitionHook;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"_process":56,"warning":73}],43:[function(require,module,exports){
+},{"_process":56,"warning":74}],43:[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = nBytes * 8 - mLen - 1
@@ -7504,7 +7519,192 @@ process.umask = function() { return 0; };
 
 },{}],57:[function(require,module,exports){
 module.exports = require('react/lib/ReactFragment').create;
-},{"react/lib/ReactFragment":67}],58:[function(require,module,exports){
+},{"react/lib/ReactFragment":68}],58:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var PropTypes = _react2['default'].PropTypes;
+var span = _react2['default'].DOM.span;
+
+var Status = {
+  PENDING: 'pending',
+  LOADING: 'loading',
+  LOADED: 'loaded',
+  FAILED: 'failed'
+};
+
+var ImageLoader = (function (_React$Component) {
+  function ImageLoader(props) {
+    _classCallCheck(this, ImageLoader);
+
+    _get(Object.getPrototypeOf(ImageLoader.prototype), 'constructor', this).call(this, props);
+    this.state = { status: props.src ? Status.LOADING : Status.PENDING };
+  }
+
+  _inherits(ImageLoader, _React$Component);
+
+  _createClass(ImageLoader, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      if (this.state.status === Status.LOADING) {
+        this.createLoader();
+      }
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (this.props.src !== nextProps.src) {
+        this.setState({
+          status: nextProps.src ? Status.LOADING : Status.PENDING
+        });
+      }
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      if (this.state.status === Status.LOADING && !this.img) {
+        this.createLoader();
+      }
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.destroyLoader();
+    }
+  }, {
+    key: 'getClassName',
+    value: function getClassName() {
+      var className = 'imageloader ' + this.state.status;
+      if (this.props.className) className = '' + className + ' ' + this.props.className;
+      return className;
+    }
+  }, {
+    key: 'createLoader',
+    value: function createLoader() {
+      this.destroyLoader(); // We can only have one loader at a time.
+
+      this.img = new Image();
+      this.img.onload = this.handleLoad.bind(this);
+      this.img.onerror = this.handleError.bind(this);
+      this.img.src = this.props.src;
+    }
+  }, {
+    key: 'destroyLoader',
+    value: function destroyLoader() {
+      if (this.img) {
+        this.img.onload = null;
+        this.img.onerror = null;
+        this.img = null;
+      }
+    }
+  }, {
+    key: 'handleLoad',
+    value: function handleLoad(event) {
+      this.destroyLoader();
+      this.setState({ status: Status.LOADED });
+
+      if (this.props.onLoad) this.props.onLoad(event);
+    }
+  }, {
+    key: 'handleError',
+    value: function handleError(error) {
+      this.destroyLoader();
+      this.setState({ status: Status.FAILED });
+
+      if (this.props.onError) this.props.onError(error);
+    }
+  }, {
+    key: 'renderImg',
+    value: function renderImg() {
+      var _props2 = this.props;
+      var src = _props2.src;
+      var imgProps = _props2.imgProps;
+
+      var props = { src: src };
+
+      for (var k in imgProps) {
+        if (imgProps.hasOwnProperty(k)) {
+          props[k] = imgProps[k];
+        }
+      }
+
+      return _react2['default'].createElement('img', props);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props;
+
+      var wrapperProps = {
+        className: this.getClassName()
+      };
+
+      if (this.props.style) {
+        wrapperProps.style = this.props.style;
+      }
+
+      var wrapperArgs = [wrapperProps];
+
+      switch (this.state.status) {
+        case Status.LOADED:
+          wrapperArgs.push(this.renderImg());
+          break;
+
+        case Status.FAILED:
+          if (this.props.children) wrapperArgs.push(this.props.children);
+          break;
+
+        default:
+          if (this.props.preloader) wrapperArgs.push(this.props.preloader());
+          break;
+      }
+
+      return (_props = this.props).wrapper.apply(_props, wrapperArgs);
+    }
+  }], [{
+    key: 'propTypes',
+    value: {
+      wrapper: PropTypes.func,
+      className: PropTypes.string,
+      style: PropTypes.object,
+      preloader: PropTypes.func,
+      src: PropTypes.string,
+      onLoad: PropTypes.func,
+      onError: PropTypes.func,
+      imgProps: PropTypes.object
+    },
+    enumerable: true
+  }, {
+    key: 'defaultProps',
+    value: {
+      wrapper: span
+    },
+    enumerable: true
+  }]);
+
+  return ImageLoader;
+})(_react2['default'].Component);
+
+exports['default'] = ImageLoader;
+module.exports = exports['default'];
+},{"react":"react"}],59:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -7568,7 +7768,7 @@ var PageView = (function (_React$Component) {
 exports.default = PageView;
 ;
 
-},{"react":"react"}],59:[function(require,module,exports){
+},{"react":"react"}],60:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -7746,7 +7946,7 @@ PaginationBoxView.defaultProps = {
 exports.default = PaginationBoxView;
 ;
 
-},{"./PaginationListView":60,"classnames":20,"react":"react"}],60:[function(require,module,exports){
+},{"./PaginationListView":61,"classnames":20,"react":"react"}],61:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -7867,7 +8067,7 @@ var PaginationListView = (function (_Component) {
 exports.default = PaginationListView;
 ;
 
-},{"./PageView":58,"react":"react","react-addons-create-fragment":57}],61:[function(require,module,exports){
+},{"./PageView":59,"react":"react","react-addons-create-fragment":57}],62:[function(require,module,exports){
 'use strict';
 
 var _PaginationBoxView = require('./PaginationBoxView');
@@ -7878,7 +8078,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 module.exports = _PaginationBoxView2.default;
 
-},{"./PaginationBoxView":59}],62:[function(require,module,exports){
+},{"./PaginationBoxView":60}],63:[function(require,module,exports){
 /**
  * Copyright 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -7926,7 +8126,7 @@ function assign(target, sources) {
 }
 
 module.exports = assign;
-},{}],63:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -8048,7 +8248,7 @@ var PooledClass = {
 
 module.exports = PooledClass;
 }).call(this,require('_process'))
-},{"_process":56,"fbjs/lib/invariant":28}],64:[function(require,module,exports){
+},{"_process":56,"fbjs/lib/invariant":28}],65:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -8231,7 +8431,7 @@ var ReactChildren = {
 };
 
 module.exports = ReactChildren;
-},{"./PooledClass":63,"./ReactElement":66,"./traverseAllChildren":72,"fbjs/lib/emptyFunction":27}],65:[function(require,module,exports){
+},{"./PooledClass":64,"./ReactElement":67,"./traverseAllChildren":73,"fbjs/lib/emptyFunction":27}],66:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -8262,7 +8462,7 @@ var ReactCurrentOwner = {
 };
 
 module.exports = ReactCurrentOwner;
-},{}],66:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -8512,7 +8712,7 @@ ReactElement.isValidElement = function (object) {
 
 module.exports = ReactElement;
 }).call(this,require('_process'))
-},{"./Object.assign":62,"./ReactCurrentOwner":65,"./canDefineProperty":70,"_process":56}],67:[function(require,module,exports){
+},{"./Object.assign":63,"./ReactCurrentOwner":66,"./canDefineProperty":71,"_process":56}],68:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2015, Facebook, Inc.
@@ -8579,7 +8779,7 @@ var ReactFragment = {
 
 module.exports = ReactFragment;
 }).call(this,require('_process'))
-},{"./ReactChildren":64,"./ReactElement":66,"_process":56,"fbjs/lib/emptyFunction":27,"fbjs/lib/invariant":28,"fbjs/lib/warning":29}],68:[function(require,module,exports){
+},{"./ReactChildren":65,"./ReactElement":67,"_process":56,"fbjs/lib/emptyFunction":27,"fbjs/lib/invariant":28,"fbjs/lib/warning":29}],69:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -8884,7 +9084,7 @@ var ReactInstanceHandles = {
 
 module.exports = ReactInstanceHandles;
 }).call(this,require('_process'))
-},{"./ReactRootIndex":69,"_process":56,"fbjs/lib/invariant":28}],69:[function(require,module,exports){
+},{"./ReactRootIndex":70,"_process":56,"fbjs/lib/invariant":28}],70:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -8914,7 +9114,7 @@ var ReactRootIndex = {
 };
 
 module.exports = ReactRootIndex;
-},{}],70:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -8941,7 +9141,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = canDefineProperty;
 }).call(this,require('_process'))
-},{"_process":56}],71:[function(require,module,exports){
+},{"_process":56}],72:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -8982,7 +9182,7 @@ function getIteratorFn(maybeIterable) {
 }
 
 module.exports = getIteratorFn;
-},{}],72:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -9174,7 +9374,7 @@ function traverseAllChildren(children, callback, traverseContext) {
 
 module.exports = traverseAllChildren;
 }).call(this,require('_process'))
-},{"./ReactCurrentOwner":65,"./ReactElement":66,"./ReactInstanceHandles":68,"./getIteratorFn":71,"_process":56,"fbjs/lib/invariant":28,"fbjs/lib/warning":29}],73:[function(require,module,exports){
+},{"./ReactCurrentOwner":66,"./ReactElement":67,"./ReactInstanceHandles":69,"./getIteratorFn":72,"_process":56,"fbjs/lib/invariant":28,"fbjs/lib/warning":29}],74:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.

@@ -33,6 +33,7 @@
     "object-assign": "^4.0.1",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",
+    "react-imageloader": "^2.1.0",
     "react-paginate": "^0.5.0",
     "react-router": "^1.0.0",
     "request": "^2.65.0",
