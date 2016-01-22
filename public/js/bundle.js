@@ -623,6 +623,8 @@ var CardModal = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var imgPath = 'http://dccards.info/assets/images/cards/card/' + this.props.data.image;
+
       return _react2.default.createElement(
         'div',
         { className: 'card-modal' },
@@ -630,11 +632,152 @@ var CardModal = function (_React$Component) {
           'div',
           { className: 'modal-content' },
           _react2.default.createElement('a', { className: 'close-modal', onClick: this.hideModal }),
-          this.props.data.name,
           _react2.default.createElement(
-            'h3',
-            null,
-            'Test line.'
+            'div',
+            { className: 'row' },
+            _react2.default.createElement(
+              'div',
+              { className: 'col-md-4' },
+              _react2.default.createElement('img', { src: imgPath })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col-md-8' },
+              _react2.default.createElement(
+                'table',
+                null,
+                _react2.default.createElement(
+                  'thead',
+                  null,
+                  _react2.default.createElement(
+                    'tr',
+                    null,
+                    _react2.default.createElement(
+                      'th',
+                      { colSpan: '7', className: 'table-header' },
+                      'Stats'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'tr',
+                    null,
+                    _react2.default.createElement('th', null),
+                    _react2.default.createElement(
+                      'th',
+                      null,
+                      'Health'
+                    ),
+                    _react2.default.createElement(
+                      'th',
+                      null,
+                      'Psyche'
+                    ),
+                    _react2.default.createElement(
+                      'th',
+                      null,
+                      'Attack'
+                    ),
+                    _react2.default.createElement(
+                      'th',
+                      null,
+                      'Defense'
+                    ),
+                    _react2.default.createElement(
+                      'th',
+                      null,
+                      'Speed'
+                    ),
+                    _react2.default.createElement(
+                      'th',
+                      null,
+                      'Intelligence'
+                    )
+                  )
+                ),
+                _react2.default.createElement(
+                  'tbody',
+                  null,
+                  _react2.default.createElement(
+                    'tr',
+                    null,
+                    _react2.default.createElement(
+                      'td',
+                      { className: 'align-left' },
+                      'Level 1'
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.stats.healthMin
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.stats.psycheMin
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.stats.attackMin
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.stats.defenseMin
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.stats.speedMin
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.stats.intelligenceMin
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'tr',
+                    null,
+                    _react2.default.createElement(
+                      'td',
+                      { className: 'align-left' },
+                      'Level Max'
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.stats.healthMax
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.stats.psycheMax
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.stats.attackMax
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.stats.defenseMax
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.stats.speedMax
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.stats.intelligenceMax
+                    )
+                  )
+                )
+              )
+            )
           )
         ),
         _react2.default.createElement('div', { className: 'modal-overlay', onClick: this.hideModal })
@@ -699,10 +842,15 @@ var Footer = function (_React$Component) {
           { className: 'container' },
           _react2.default.createElement(
             'h6',
-            null,
+            { className: 'pull-left' },
             'Matt Yao © ',
             this.state.year,
             ' - Deadman\'s Cross Card Viewer'
+          ),
+          _react2.default.createElement(
+            'h6',
+            { className: 'pull-right' },
+            'All images are owned by Square Enix Co., Ltd.'
           )
         )
       );
@@ -854,18 +1002,6 @@ var Home = function (_React$Component) {
         rarity: this.state.filterOptions.rarity,
         strain: this.state.filterOptions.strain,
         spawnArea: this.state.filterOptions.spawnArea
-      });
-
-      $('.card-info-link').magnificPopup({
-        type: 'inline',
-        fixedContentPos: false,
-        fixedBgPos: true,
-        overflowY: 'auto',
-        closeBtnInside: true,
-        preloader: false,
-        midClick: true,
-        removalDelay: 300,
-        mainClass: 'my-mfp-zoom-in'
       });
     }
   }, {
@@ -1127,7 +1263,10 @@ var filterOptions = {
   strain: 'All',
   spawnArea: 'All'
 };
-var selectedCard = {};
+var selectedCard = {
+  stats: {},
+  skillset: {}
+};
 
 var CardsStore = (0, _objectAssign2.default)({}, EventEmitter.prototype, {
   getAllCards: function getAllCards() {

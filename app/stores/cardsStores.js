@@ -18,7 +18,10 @@ var filterOptions = {
   strain: 'All',
   spawnArea: 'All'
 }
-var selectedCard = {};
+var selectedCard = {
+  stats: {},
+  skillset: {}
+};
 
 var CardsStore = assign({}, EventEmitter.prototype, {
   getAllCards: function(){

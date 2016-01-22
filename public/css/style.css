@@ -139,6 +139,9 @@ ul.card-list {
   display: none; }
   .card-modal.show {
     display: block; }
+  .card-modal img {
+    border-radius: 25px;
+    width: 100%; }
   .card-modal .close-modal {
     position: absolute;
     width: 26px;
@@ -149,12 +152,12 @@ ul.card-list {
     z-index: 10;
     background: url("../img/close-modal.png") no-repeat; }
   .card-modal .modal-content {
-    background: white;
+    background: rgba(255, 255, 255, 0.6);
     padding: 20px 30px;
     text-align: left;
     width: 800px;
     height: 540px;
-    color: #000;
+    color: #333;
     margin: 40px auto;
     position: fixed;
     top: 70px;
@@ -169,6 +172,29 @@ ul.card-list {
     transition: all 0.4s linear; }
     .card-modal .modal-content.show {
       opacity: 1; }
+    .card-modal .modal-content table {
+      width: 100%; }
+      .card-modal .modal-content table thead tr th {
+        height: 40px;
+        text-align: center;
+        font-size: 12px;
+        border: 1px solid #666;
+        padding: 10px; }
+        .card-modal .modal-content table thead tr th.table-header {
+          font-size: 16px;
+          color: #ebecda;
+          height: 25px;
+          line-height: 25px;
+          padding: 5px; }
+      .card-modal .modal-content table tbody tr td {
+        padding: 0 10px;
+        text-align: right;
+        height: 40px;
+        line-height: 40px;
+        border: 1px solid #666; }
+        .card-modal .modal-content table tbody tr td:first-child {
+          font-weight: bold;
+          font-size: 12px; }
   .card-modal .modal-overlay {
     top: 0;
     left: 0;

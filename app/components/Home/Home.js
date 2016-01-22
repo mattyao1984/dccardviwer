@@ -34,18 +34,6 @@ class Home extends React.Component {
       strain: this.state.filterOptions.strain,
       spawnArea:  this.state.filterOptions.spawnArea
     });
-
-    $('.card-info-link').magnificPopup({
-      type: 'inline',
-  		fixedContentPos: false,
-  		fixedBgPos: true,
-  		overflowY: 'auto',
-  		closeBtnInside: true,
-  		preloader: false,
-  		midClick: true,
-  		removalDelay: 300,
-  		mainClass: 'my-mfp-zoom-in'
-    });
   }
 
   componentWillUnmount() {
