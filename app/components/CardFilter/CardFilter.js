@@ -70,11 +70,14 @@ class CardFilter extends React.Component {
     );
 
     mySpawnAreas.push(<option value='All' key='all_spawn_area'>All</option>);
-    this.state.allSpawnAreas.forEach((sp, index) =>
-      mySpawnAreas.push(
-        <option value={sp.name} key={index + '_spawn_area'}>{sp.name}</option>
-      )
-    );
+    console.log('spawnAreas: ', this.state.allSpawnAreas);
+    this.state.allSpawnAreas.forEach((sp, index) => {
+      if(sp != null){
+        mySpawnAreas.push(
+          <option value={sp} key={index + '_spawn_area'}>{sp}</option>
+        )
+      }
+    });
 
     return(
       <div className={filterClass}>

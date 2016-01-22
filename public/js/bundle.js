@@ -417,12 +417,15 @@ var CardFilter = function (_React$Component) {
         { value: 'All', key: 'all_spawn_area' },
         'All'
       ));
+      console.log('spawnAreas: ', this.state.allSpawnAreas);
       this.state.allSpawnAreas.forEach(function (sp, index) {
-        return mySpawnAreas.push(_react2.default.createElement(
-          'option',
-          { value: sp.name, key: index + '_spawn_area' },
-          sp.name
-        ));
+        if (sp != null) {
+          mySpawnAreas.push(_react2.default.createElement(
+            'option',
+            { value: sp, key: index + '_spawn_area' },
+            sp
+          ));
+        }
       });
 
       return _react2.default.createElement(
@@ -703,7 +706,7 @@ var CardModal = function (_React$Component) {
                     _react2.default.createElement(
                       'td',
                       { className: 'align-left' },
-                      'Level 1'
+                      'Lv 1'
                     ),
                     _react2.default.createElement(
                       'td',
@@ -742,7 +745,7 @@ var CardModal = function (_React$Component) {
                     _react2.default.createElement(
                       'td',
                       { className: 'align-left' },
-                      'Level Max'
+                      'Lv Max'
                     ),
                     _react2.default.createElement(
                       'td',
@@ -773,6 +776,111 @@ var CardModal = function (_React$Component) {
                       'td',
                       null,
                       this.props.data.stats.intelligenceMax
+                    )
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'table',
+                null,
+                _react2.default.createElement(
+                  'thead',
+                  null,
+                  _react2.default.createElement(
+                    'tr',
+                    null,
+                    _react2.default.createElement(
+                      'th',
+                      { colSpan: '2', className: 'table-header' },
+                      'Skillset'
+                    )
+                  )
+                ),
+                _react2.default.createElement(
+                  'tbody',
+                  null,
+                  _react2.default.createElement(
+                    'tr',
+                    null,
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      'Level 01'
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.skillset.level01
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'tr',
+                    null,
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      'Level 15'
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.skillset.level15
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'tr',
+                    null,
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      'Level 30'
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.skillset.level30
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'tr',
+                    null,
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      'Level 40'
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.skillset.level40
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'tr',
+                    null,
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      'Level 50'
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.skillset.level50
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'tr',
+                    null,
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      'Redeath'
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      this.props.data.skillset.redeath
                     )
                   )
                 )

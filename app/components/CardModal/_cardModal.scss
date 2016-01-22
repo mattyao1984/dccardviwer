@@ -44,14 +44,15 @@
 
     table{
       width: 100%;
+      margin-bottom: 15px;
 
       thead{
         tr{
           th{
-            height: 40px;
+            height: 30px;
             text-align: center;
             font-size: 12px;
-            border: 1px solid #666;
+            border: 2px solid #333;
             padding: 10px;
 
             &.table-header{
@@ -70,9 +71,9 @@
           td{
             padding: 0 10px;
             text-align: right;
-            height: 40px;
-            line-height: 40px;
-            border: 1px solid #666;
+            height: 30px;
+            line-height: 30px;
+            border: 2px solid #333;
 
             &:first-child{
               font-weight: bold;

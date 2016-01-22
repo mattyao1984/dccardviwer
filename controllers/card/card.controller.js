@@ -41,7 +41,7 @@ module.exports = {
         level30: req.body.skillset.level30,
         level40: req.body.skillset.level40,
         level50: req.body.skillset.level50,
-        redeath: req.body.skillset.readeath
+        redeath: req.body.skillset.redeath
       }
     });
 
@@ -120,6 +120,15 @@ module.exports = {
     });
   },
 
+  spawnAreas: function(req, res){
+    Card.find().distinct('spawnArea', function(err, rarities){
+      if(err)
+        res.send(err)
+
+      res.json(rarities)
+    });
+  },
+
   seedCards: function(req, res){
     //Truncate the collection first
     Card.remove({}, function(err){
@@ -158,7 +167,7 @@ module.exports = {
             level30: card.skillset.level30,
             level40: card.skillset.level40,
             level50: card.skillset.level50,
-            redeath: card.skillset.readeath
+            redeath: card.skillset.redeath
           }
         });
 
