@@ -5,7 +5,11 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "watch": "nodemon server.js"
+    "watch": "nodemon server.js",
+    "gulp": "gulp",
+    "preinstall": "npm install -g gulp",
+    "prestart": "npm run gulp",
+    "postinstall": "bower install -F && gulp build"
   },
   "author": "Matt Yao",
   "license": "MIT",
