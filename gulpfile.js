@@ -141,4 +141,4 @@ gulp.task('watch', function () {
 });
 
 gulp.task('default', ['sass', 'wiredep', 'lr', 'serve', 'browserify-watch', 'watch']);
-gulp.task('build', ['sass', 'browserify']);
+gulp.task('build', ['sass', 'wiredep', 'browserify']);
