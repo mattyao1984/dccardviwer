@@ -15,7 +15,8 @@
     "postinstall": "bower install -F && gulp build"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4.10.0",
+    "npm": ">=3.0.0"
   },
   "author": "Matt Yao",
   "license": "MIT",
