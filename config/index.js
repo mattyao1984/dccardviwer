@@ -18,7 +18,7 @@ var settings = {
 
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost:27017/mern-dc',
+    uri: 'mongodb://mern-admin:a1b2c3d4e5@ds047075.mongolab.com:47075/heroku_cr7z2j0f',
     options: {
       db: {
         safe: true
