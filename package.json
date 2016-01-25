@@ -6,14 +6,16 @@
     "type": "git",
     "url": "https://github.com/mattyao1984/dccardviwer"
   },
-  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "watch": "nodemon server.js",
     "gulp": "gulp",
+    "watch": "nodemon server.js",
     "preinstall": "npm install -g gulp",
     "prestart": "npm run gulp",
-    "postinstall": "bower install && gulp build"
+    "start": "node server.js",
+    "postinstall": "bower install -F && gulp build"
+  },
+  "engines": {
+    "node": ">=0.10.0"
   },
   "author": "Matt Yao",
   "license": "MIT",
