@@ -1,7 +1,8 @@
+'use strict';
+
 /**
  * Main application file
  */
-
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var express = require('express');
@@ -17,8 +18,7 @@ mongoose.connect(config.mongo.uri, config.mongo.options);
 mongoose.connection.on('error', function(err) {
 	console.error('MongoDB connection error: ' + err);
 	process.exit(-1);
-	}
-);
+});
 
 require('./config/express')(app);
 require('./routes')(app);

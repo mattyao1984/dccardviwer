@@ -1,0 +1,15 @@
+.filterContent{
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  @include my-transition(all 0.4s linear);
+
+  &.show{
+    max-height: 200px;
+    opacity: 1;
+  }
+
+  .refresh-btn{
+    margin-top: 26px;
+  }
+}

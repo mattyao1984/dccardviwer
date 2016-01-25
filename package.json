@@ -2,10 +2,20 @@
   "name": "mern",
   "version": "0.1.0",
   "description": "This is a demo of how to build full-stack web app with React, Node.js, MongoDB and Express",
-  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattyao1984/dccardviwer"
+  },
   "scripts": {
-    "start": "nodemon server.js",
-    "watch": "nodemon server.js"
+    "gulp": "gulp",
+    "watch": "nodemon server.js",
+    "preinstall": "npm install -g gulp",
+    "prestart": "npm run gulp",
+    "start": "node server.js",
+    "postinstall": "bower install -F && gulp build"
+  },
+  "engines": {
+    "node": ">=0.10.0"
   },
   "author": "Matt Yao",
   "license": "MIT",
@@ -33,21 +43,25 @@
     "object-assign": "^4.0.1",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",
+    "react-imageloader": "^2.1.0",
+    "react-paginate": "^0.5.0",
     "react-router": "^1.0.0",
     "request": "^2.65.0",
     "serve-favicon": "^2.3.0",
     "socket.io": "^1.3.7",
     "swig": "^1.4.2",
     "underscore": "^1.8.3",
+    "util": "^0.10.3",
     "wiredep": "^3.0.0",
     "xml2js": "^0.4.15"
   },
   "devDependencies": {
     "babel-core": "^6.1.19",
     "babel-loader": "^6.1.0",
+    "babel-polyfill": "^6.3.14",
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-react": "^6.1.18",
-    "babel-register": "^6.3.13",
+    "babel-register": "^6.4.3",
     "babelify": "^7.2.0",
     "bower": "^1.6.5",
     "browserify": "^12.0.1",
@@ -57,15 +71,18 @@
     "gulp-cssmin": "^0.1.7",
     "gulp-if": "^2.0.0",
     "gulp-less": "^3.0.3",
+    "gulp-livereload": "^3.8.1",
+    "gulp-nodemon": "^2.0.6",
+    "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.0.1",
     "gulp-sass": "^2.1.1",
     "gulp-streamify": "1.0.2",
     "gulp-uglify": "^1.4.2",
     "gulp-util": "^3.0.7",
-    "jquery": "^2.2.0",
     "keymirror": "^0.1.1",
     "lodash": "^4.0.0",
     "request": "^2.67.0",
+    "tiny-lr": "^0.2.1",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.6.0"
   }

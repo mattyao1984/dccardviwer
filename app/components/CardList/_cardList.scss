@@ -1,0 +1,13 @@
+ul{
+  &.card-list{
+    width: 100%;
+    @extend .no-margin;
+
+    li{
+      list-style: none;
+      display: inline-block;
+      width:  150px;
+      margin: 15px;
+    }
+  }
+}

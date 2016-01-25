@@ -1,0 +1,26 @@
+.page{
+  padding: 30px 0;
+
+  &.home{
+    h2{
+      display: inline-block;
+    }
+
+    .filter-btn{
+      padding: 0 10px;
+      margin-top: 20px;
+      display: inline-block;
+      width: 130px;
+    }
+
+    .filter-block{
+      display: block;
+      overflow: auto;
+      margin-bottom: 20px;
+    }
+
+    .cards-block{
+      display: block;
+    }
+  }
+}

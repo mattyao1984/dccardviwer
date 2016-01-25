@@ -1,9 +1,14 @@
-'use strict';
-
 var Card = require('../../models/card');
 var config = require('../../config');
 var request = require('request');
 var _ = require('lodash');
+var util = require('util');
+
+
+var PER_PAGE = 10;
+var getPaginatedItems = function(items, offset){
+  return items.slice(offset, offset + PER_PAGE);
+};
 
 module.exports = {
   create: function(req, res){
@@ -36,7 +41,7 @@ module.exports = {
         level30: req.body.skillset.level30,
         level40: req.body.skillset.level40,
         level50: req.body.skillset.level50,
-        redeath: req.body.skillset.readeath
+        redeath: req.body.skillset.redeath
       }
     });
 
@@ -56,18 +61,40 @@ module.exports = {
   },
 
   index: function(req, res){
-    Card.find({}, function(err, cards){
+    Card.find({
+      rarity: (req.query.options.rarity == 'All') ? {$exists: true} : req.query.options.rarity,
+      strain: (req.query.options.strain == 'All') ? {$exists: true} : req.query.options.strain,
+      spawnArea: (req.query.options.spawnArea == 'All') ? {$exists: true} : req.query.options.spawnArea
+    }, function(err, cards){
       if(err)
         res.send(err);
 
-      res.json(cards);
+      //Pagination function
+      var offset = req.query.offset ? parseInt(req.query.offset, PER_PAGE): 0;
+      var nextOffset = offset + PER_PAGE;
+      var previousOffset = (offset - PER_PAGE < 1) ? 0 : offset - PER_PAGE;
+
+      var meta = {
+        limit: PER_PAGE,
+        next: util.format('?limit=%s&offset=%s', PER_PAGE, nextOffset),
+        offset: req.query.offset,
+        previous: util.format('?limit=%s&offset=%s', PER_PAGE, previousOffset),
+        total_count: cards.length
+      };
+
+      var results = {
+        meta: meta,
+        cards: getPaginatedItems(cards, offset)
+      }
+
+      res.json(results);
     });
   },
 
   show: function(req, res, next){
     var cardId = req.params.id;
 
-    Card.find(cardId, function(err, card){
+    Card.find({_id: cardId}, function(err, card){
       if(err)
         res.send(err);
 
@@ -75,7 +102,39 @@ module.exports = {
     })
   },
 
+  cardStrains: function(req, res){
+    Card.find().distinct('strain', function(err, strains){
+      if(err)
+        res.send(err)
+
+      res.json(strains)
+    });
+  },
+
+  cardRarities: function(req, res){
+    Card.find().distinct('rarity', function(err, rarities){
+      if(err)
+        res.send(err)
+
+      res.json(rarities)
+    });
+  },
+
+  spawnAreas: function(req, res){
+    Card.find().distinct('spawnArea', function(err, rarities){
+      if(err)
+        res.send(err)
+
+      res.json(rarities)
+    });
+  },
+
   seedCards: function(req, res){
+    //Truncate the collection first
+    Card.remove({}, function(err){
+      console.log('Card collection is dropped.', err);
+    });
+
     //Save all cards info from public API to local MongoDB
     request('http://dccards.info/api/cards', function(error, response, body) {
       _.each(JSON.parse(body), function(card){
@@ -108,7 +167,7 @@ module.exports = {
             level30: card.skillset.level30,
             level40: card.skillset.level40,
             level50: card.skillset.level50,
-            redeath: card.skillset.readeath
+            redeath: card.skillset.redeath
           }
         });
 
