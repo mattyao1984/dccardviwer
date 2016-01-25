@@ -9,7 +9,7 @@
   "scripts": {
     "gulp": "gulp",
     "watch": "nodemon server.js",
-    "preinstall": "npm install -g gulp",
+    "preinstall": "npm install -g gulp bower",
     "prestart": "npm run gulp",
     "start": "node server.js",
     "postinstall": "bower install -F && gulp build"
