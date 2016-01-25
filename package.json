@@ -38,6 +38,7 @@
     "express": "^4.13.3",
     "express-session": "^1.12.1",
     "flux": "^2.1.1",
+    "gulp": "^3.9.0",
     "history": "^1.13.0",
     "mongoose": "^4.2.5",
     "morgan": "^1.6.1",
