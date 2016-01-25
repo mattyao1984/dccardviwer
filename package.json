@@ -2,14 +2,18 @@
   "name": "mern",
   "version": "0.1.0",
   "description": "This is a demo of how to build full-stack web app with React, Node.js, MongoDB and Express",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattyao1984/dccardviwer"
+  },
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "watch": "nodemon server.js",
     "gulp": "gulp",
     "preinstall": "npm install -g gulp",
     "prestart": "npm run gulp",
-    "postinstall": "bower install -F && gulp build"
+    "postinstall": "bower install && gulp build"
   },
   "author": "Matt Yao",
   "license": "MIT",
