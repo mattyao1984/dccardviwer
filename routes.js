@@ -1,6 +1,10 @@
 'use strict';
 
 // Babel ES6/JSX Compiler
+require('babel-register');
+require('babel-polyfill');
+
+// Babel ES6/JSX Compiler
 var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
