@@ -1061,7 +1061,16 @@ var Header = function (_React$Component) {
       return _react2.default.createElement(
         'header',
         null,
-        _react2.default.createElement('div', { className: 'container' })
+        _react2.default.createElement(
+          'div',
+          { className: 'container' },
+          _react2.default.createElement(
+            'div',
+            { className: 'download' },
+            _react2.default.createElement('a', { className: 'store apple', href: 'https://itunes.apple.com/au/app/deadmans-cross/id757746345?mt=8', target: '_blank' }),
+            _react2.default.createElement('a', { className: 'store google', href: 'https://play.google.com/store/apps/details?id=com.square_enix.android_googleplay.deadmanscrossww&hl=en', target: '_blank' })
+          )
+        )
       );
     }
   }]);
