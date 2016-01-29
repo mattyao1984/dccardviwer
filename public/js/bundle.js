@@ -6370,10 +6370,13 @@ function getStack() {
   Error.stackTraceLimit = Math.max(10, limit)
 
   // capture the stack
-  Error.captureStackTrace(obj)
-
-  // slice this function off the top
-  var stack = obj.stack.slice(1)
+  var stack = {}
+  if(Error.captureStackTrace){
+    Error.captureStackTrace(obj)
+    stack = obj.stack.slice(1)
+  }else{
+    stack = new Error().stack.slice(1)
+  }
 
   Error.prepareStackTrace = prep
   Error.stackTraceLimit = limit
@@ -6689,10 +6692,13 @@ lazyProperty(module.exports, 'callSiteToString', function callSiteToString() {
   Error.stackTraceLimit = 2
 
   // capture the stack
-  Error.captureStackTrace(obj)
-
-  // slice the stack
-  var stack = obj.stack.slice()
+  var stack  = {};
+  if(Error.captureStackTrace){
+    Error.captureStackTrace(obj)
+    stack = obj.stack.slice()
+  }else{
+    stack = new Error().stack.slice()
+  }
 
   Error.prepareStackTrace = prep
   Error.stackTraceLimit = limit

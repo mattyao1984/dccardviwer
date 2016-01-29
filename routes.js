@@ -17,6 +17,7 @@ var ReactDOM = require('react-dom/server');
 
 module.exports = function(app){
   app.use(require('./controllers/card'));
+  app.use(require('./controllers/user'));
 
   app.use(function(req, res){
     Router.match({ routes: routes.default, location: req.url }, function(err, redirectLocation, renderProps) {

@@ -24,6 +24,14 @@ var settings = {
         safe: true
       }
     }
+  },
+
+  facebook: {
+
+  },
+
+  google: {
+    
   }
 };
 
