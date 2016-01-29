@@ -38,7 +38,7 @@ module.exports = {
     });
   },
 
-  exports.me = function(req, res, next){
+  me: function(req, res, next){
     var userId = req.user._id;
 
     User.findOne({
@@ -57,7 +57,7 @@ module.exports = {
     });
   },
 
-  exports.authCallback = function(req, res, next){
+  authCallback: function(req, res, next){
     res.redirect('/');
   }
 };

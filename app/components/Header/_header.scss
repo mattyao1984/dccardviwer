@@ -5,5 +5,36 @@ header{
     background-image: url('/img/header_banner.png');
     background-repeat: no-repeat;
     background-position: center center;
+    position: relative;
+
+    .download{
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+
+      .store{
+        display: block;
+        width: 138px;
+        height: 41px;
+        display: inline-block;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin-right: 10px;
+        opacity: 0.6;
+        @include my-transition(opacity 0.3s linear);
+
+        &:hover{
+          opacity: 1;
+        }
+
+        &.apple{
+          background-image: url('/img/apple-download.png');
+        }
+
+        &.google{
+          background-image: url('/img/google-download.png');
+        }
+      }
+    }
   }
 }
