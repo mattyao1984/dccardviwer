@@ -54,15 +54,15 @@ header .container {
   header .container .download {
     position: absolute;
     bottom: 15px;
-    left: 15px; }
+    right: 15px; }
     header .container .download .store {
       display: block;
       width: 138px;
       height: 41px;
-      display: inline-block;
+      display: block;
       background-repeat: no-repeat;
       background-size: cover;
-      margin-right: 10px;
+      margin: 0 10px 10px 0;
       opacity: 0.6;
       -webkit-transition: opacity 0.3s linear;
       -moz-transition: opacity 0.3s linear;

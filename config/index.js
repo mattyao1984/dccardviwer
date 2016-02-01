@@ -16,6 +16,9 @@ var settings = {
     session: 'none-secrect'
   },
 
+  // List of user roles
+  userRoles: ['guest', 'user', 'admin'],
+
   // MongoDB connection options
   mongo: {
     uri: 'mongodb://mern-admin:a1b2c3d4e5@ds047075.mongolab.com:47075/heroku_cr7z2j0f',
@@ -31,7 +34,7 @@ var settings = {
   },
 
   google: {
-    
+
   }
 };
 
