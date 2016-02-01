@@ -33,7 +33,8 @@ var dependencies = [
   'react',
   'react-dom',
   'react-router',
-  'lodash'
+  'lodash',
+  'depd'
 ];
 
 //Start server
