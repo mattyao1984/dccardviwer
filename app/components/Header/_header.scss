@@ -20,8 +20,8 @@ header{
         background-repeat: no-repeat;
         background-size: cover;
         margin: 0 10px 10px 0;
-        opacity: 0.6;
-        @include my-transition(opacity 0.3s linear);
+        opacity: 0.75;
+        transition: all 0.3 linear;
 
         &:hover{
           opacity: 1;

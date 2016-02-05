@@ -9,11 +9,28 @@
   .pagination > li > a {
     background: #000;
     color: #fff; }
-  .pagination > .active > a,
-  .pagination > .active > a:focus,
-  .pagination > .active > a:hover {
+  .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover {
     border-color: #ababab;
     background: #ababab; }
+
+form {
+  margin: 40px 0; }
+  form label {
+    display: block;
+    height: 30px; }
+  form .form-group {
+    margin-bottom: 20px; }
+  form .form__text-full {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background: none;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    padding: 0 5px; }
+  form .form__button-lg {
+    width: 150px;
+    height: 40px; }
 
 *:focus {
   outline: none !important; }
@@ -39,9 +56,6 @@ html body {
     border: none;
     box-shadow: none;
     -webkit-transition: all 0.2s linear;
-    -moz-transition: all 0.2s linear;
-    -ms-transition: all 0.2s linear;
-    -o-transition: all 0.2s linear;
     transition: all 0.2s linear; }
 
 header .container {
@@ -63,12 +77,9 @@ header .container {
       background-repeat: no-repeat;
       background-size: cover;
       margin: 0 10px 10px 0;
-      opacity: 0.6;
-      -webkit-transition: opacity 0.3s linear;
-      -moz-transition: opacity 0.3s linear;
-      -ms-transition: opacity 0.3s linear;
-      -o-transition: opacity 0.3s linear;
-      transition: opacity 0.3s linear; }
+      opacity: 0.75;
+      -webkit-transition: all 0.3 linear;
+      transition: all 0.3 linear; }
       header .container .download .store:hover {
         opacity: 1; }
       header .container .download .store.apple {
@@ -109,9 +120,6 @@ ul.card-list {
   opacity: 0;
   overflow: hidden;
   -webkit-transition: all 0.4s linear;
-  -moz-transition: all 0.4s linear;
-  -ms-transition: all 0.4s linear;
-  -o-transition: all 0.4s linear;
   transition: all 0.4s linear; }
   .filterContent.show {
     max-height: 200px;
@@ -121,13 +129,13 @@ ul.card-list {
 
 .card-info-link {
   -webkit-perspective: 1000;
-  -moz-perspective: 1000;
   perspective: 1000; }
   .card-info-link .flipper-block, .card-info-link .flipper .flipper-front, .card-info-link .flipper .flipper-back {
     width: 150px;
     height: 225px;
     display: block;
-    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
     position: absolute;
     top: 0;
     left: 0; }
@@ -144,23 +152,22 @@ ul.card-list {
     cursor: pointer; }
     .card-info-link:hover .flipper {
       -webkit-transform: rotateY(180deg);
-      -moz-transform: rotateY(180deg);
       transform: rotateY(180deg); }
   .card-info-link .flipper {
     position: relative;
     width: 150px;
     height: 225px;
     -webkit-transition: all 0.4s linear;
-    -moz-transition: all 0.4s linear;
-    -ms-transition: all 0.4s linear;
-    -o-transition: all 0.4s linear;
     transition: all 0.4s linear;
-    transform-style: preserve-3d; }
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d; }
     .card-info-link .flipper .flipper-front {
       z-index: 2;
-      transform: rotateY(0deg); }
+      -webkit-transform: rotateY(0deg);
+              transform: rotateY(0deg); }
     .card-info-link .flipper .flipper-back {
-      transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
+              transform: rotateY(180deg);
       padding: 10px;
       border-radius: 5px;
       background: #dedede;
@@ -200,9 +207,6 @@ ul.card-list {
     z-index: 9;
     opacity: 0;
     -webkit-transition: all 0.4s linear;
-    -moz-transition: all 0.4s linear;
-    -ms-transition: all 0.4s linear;
-    -o-transition: all 0.4s linear;
     transition: all 0.4s linear; }
     .card-modal .modal-content.show {
       opacity: 1; }
@@ -243,30 +247,19 @@ ul.card-list {
 .my-mfp-zoom-in .zoom-anim-dialog {
   opacity: 0;
   -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   -webkit-transform: scale(0.8);
-  -moz-transform: scale(0.8);
-  -ms-transform: scale(0.8);
-  -o-transform: scale(0.8);
   transform: scale(0.8); }
 
 /* animate in */
 .my-mfp-zoom-in.mfp-ready .zoom-anim-dialog {
   opacity: 1;
   -webkit-transform: scale(1);
-  -moz-transform: scale(1);
-  -ms-transform: scale(1);
-  -o-transform: scale(1);
   transform: scale(1); }
 
 /* animate out */
 .my-mfp-zoom-in.mfp-removing .zoom-anim-dialog {
   -webkit-transform: scale(0.8);
-  -moz-transform: scale(0.8);
-  -ms-transform: scale(0.8);
-  -o-transform: scale(0.8);
   transform: scale(0.8);
   opacity: 0; }
 
@@ -274,8 +267,6 @@ ul.card-list {
 .my-mfp-zoom-in.mfp-bg {
   opacity: 0;
   -webkit-transition: opacity 0.3s ease-out;
-  -moz-transition: opacity 0.3s ease-out;
-  -o-transition: opacity 0.3s ease-out;
   transition: opacity 0.3s ease-out; }
 
 /* animate in */
@@ -285,3 +276,5 @@ ul.card-list {
 /* animate out */
 .my-mfp-zoom-in.mfp-removing.mfp-bg {
   opacity: 0; }
+
+/*# sourceMappingURL=style.css.map */

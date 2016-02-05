@@ -25,6 +25,9 @@ var livereload = require('gulp-livereload');
 var server = require('tiny-lr')();
 var lrPort = 35730;
 
+var postcss    = require('gulp-postcss');
+var sourcemaps = require('gulp-sourcemaps');
+
 var production = process.env.NODE_ENV === 'production';
 
 var dependencies = [
@@ -136,9 +139,18 @@ gulp.task('sass', function () {
     .pipe(livereload(server));
 });
 
+gulp.task('postCss', function () {
+    return gulp.src('public/css/*.css')
+        .pipe( sourcemaps.init() )
+        .pipe( postcss([ require('autoprefixer'), require('precss') ]) )
+        .pipe( sourcemaps.write('.') )
+        .pipe( gulp.dest('public/css') );
+});
+
 gulp.task('watch', function () {
   gulp.watch(['public/sass/*.scss', 'app/components/**/*.scss'], ['sass']);
   gulp.watch(['bower.json'], ['wiredep']);
+  gulp.watch(['public/css/*.css'],['postCss']);
 });
 
 gulp.task('default', ['sass', 'wiredep', 'lr', 'serve', 'browserify-watch', 'watch']);

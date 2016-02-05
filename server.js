@@ -14,7 +14,7 @@ var Router = require('./routes');
 var app = express();
 
 //Connect to DB
-mongoose.connect(config.mongo.uri, config.mongo.options);
+mongoose.connect(config.mongo.uri[process.env.NODE_ENV], config.mongo.options);
 mongoose.connection.on('error', function(err) {
 	console.error('MongoDB connection error: ' + err);
 	process.exit(-1);

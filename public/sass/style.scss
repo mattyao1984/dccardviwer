@@ -1,6 +1,7 @@
 @import "_bootstrapoverrides";
 @import "_variables";
 @import "_mixins";
+@import "_form";
 @import "_global";
 
 //component css included
@@ -11,3 +12,5 @@
 @import "app/components/CardFilter/_cardFilter";
 @import "app/components/Card/_card";
 @import "app/components/CardModal/_cardModal";
+
+@import "app/components/SignUp/_signUp";
